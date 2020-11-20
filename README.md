@@ -14,5 +14,7 @@ See Youtube: <a href="https://www.youtube.com/watch?v=uzyOOlCvQN0">https://www.y
 
 ## Starting
 ```mvn clean```
+
 ```mvn package```
+
 ```mvn exec:java```
