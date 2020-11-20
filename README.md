@@ -11,3 +11,8 @@ JavaFX Tetris Clone Game
 
 ## Gameplay
 See Youtube: <a href="https://www.youtube.com/watch?v=uzyOOlCvQN0">https://www.youtube.com/watch?v=uzyOOlCvQN0</a>
+
+## Starting
+mvn clean
+mvn package
+mvn exec:java
