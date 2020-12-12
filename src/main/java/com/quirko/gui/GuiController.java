@@ -262,7 +262,7 @@ public class GuiController implements Initializable {
     public void newGame(ActionEvent actionEvent) {
         timeLine.stop();
         gameOverPanel.setVisible(false);
-        eventListener.createNewGame();
+        eventListener.createNewGame(false);
         gamePanel.requestFocus();
         timeLine.play();
         isPause.setValue(Boolean.FALSE);
