@@ -137,6 +137,13 @@ public class SimpleBoard implements Board {
     public void newGame() {
         currentGameMatrix = new int[width][height];
         score.reset();
+        createNewBrick();
+    }
+
+    @Override
+    public void gameOver() {
+        currentGameMatrix = new int[width][height];
+        score.reset();
         level.resetLevel();
         createNewBrick();
     }

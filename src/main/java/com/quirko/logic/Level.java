@@ -59,9 +59,11 @@ public class Level {
     }
 
     public void resetLevel(){
-        levelNumber = 0;
+        levelNumber = 1;
         currentPoint = 0;
         moveCount = 0;
+        maxPoint = 125;
+        target.setValue( maxPoint);
         System.out.println("Level resettled");
     }
 
@@ -76,9 +78,10 @@ public class Level {
     }
 
     public void upgradeLevel(){
+        System.out.println("Level upgraded");
         this.levelNumber++;
         this.maxPoint = (int) Math.round(maxPoint * 1.2);
-        maxPoint = (maxPoint + 4) / 5 * 5;
+        maxPoint *= 1.2;
         target.setValue( (maxPoint + 4) / 5 * 5);
         this.currentPoint = 0;
         this.moveCount = 0;

@@ -27,4 +27,6 @@ public interface Board {
     Level getLevel();
 
     void newGame();
+
+    void gameOver();
 }

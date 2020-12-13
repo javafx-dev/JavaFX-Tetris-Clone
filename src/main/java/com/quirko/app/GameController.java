@@ -8,7 +8,7 @@ import com.quirko.logic.events.MoveEvent;
 
 public class GameController implements InputEventListener {
 
-    private Level level = new Level(25);
+    private Level level = new Level(125);
 
     private Board board = new SimpleBoard(25, 10, level);
 
@@ -61,7 +61,6 @@ public class GameController implements InputEventListener {
         if(level.completed()){
             System.out.println(level.getName() + " is completed.");
             System.out.println(level.successRate());
-            board.getLevel().upgradeLevel();
             createNewGame(true);
         }
         return new DownData(clearRow, board.getViewData());
@@ -90,15 +89,21 @@ public class GameController implements InputEventListener {
     public void createNewGame(boolean isNewLevel) {
         if(isNewLevel){
             level.upgradeLevel();
-            board.updateLevel(level);
+            board.newGame();
 
         }
         else {
             level.resetLevel();
-            board.updateLevel(level);
-
+            board.gameOver();
         }
-        board.newGame();
+        board.updateLevel(level);
+        viewGuiController.refreshGameBackground(board.getBoardMatrix());
+    }
+
+    @Override
+    public void restartGame(){
+        level.resetLevel();
+        board.updateLevel(level);
         viewGuiController.refreshGameBackground(board.getBoardMatrix());
     }
 }
