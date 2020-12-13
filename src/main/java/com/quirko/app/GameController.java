@@ -22,6 +22,7 @@ public class GameController implements InputEventListener {
         viewGuiController.initGameView(board.getBoardMatrix(), board.getViewData());
         viewGuiController.bindScore(board.getScore().scoreProperty());
         viewGuiController.bindTarget(board.getLevel().targetProperty());
+        viewGuiController.bindLevelID(board.getLevel().levelIDProperty());
         //Maxpoint for the first level is 250.
         board.updateLevel(level);
     }

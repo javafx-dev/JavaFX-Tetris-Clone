@@ -11,6 +11,8 @@ public class Level {
     private int currentPoint;
     private int moveCount;
     private IntegerProperty target = new SimpleIntegerProperty(0);
+    private IntegerProperty levelID = new SimpleIntegerProperty(0);
+
 
     //This constructor sets information for the first level. After that, levels increases
     // automatically.
@@ -20,6 +22,7 @@ public class Level {
         this.currentPoint = 0;
         this.moveCount = 0;
         target = new SimpleIntegerProperty(maxPoint);
+        levelID= new SimpleIntegerProperty(1);
     }
 
 
@@ -64,6 +67,7 @@ public class Level {
         moveCount = 0;
         maxPoint = 125;
         target.setValue( maxPoint);
+        levelID.setValue(1);
         System.out.println("Level resettled");
     }
 
@@ -83,6 +87,7 @@ public class Level {
         this.maxPoint = (int) Math.round(maxPoint * 1.2);
         maxPoint *= 1.2;
         target.setValue( (maxPoint + 4) / 5 * 5);
+        levelID.setValue(levelNumber);
         this.currentPoint = 0;
         this.moveCount = 0;
     }
@@ -90,6 +95,10 @@ public class Level {
 
     public IntegerProperty targetProperty() {
         return target;
+    }
+
+    public IntegerProperty levelIDProperty() {
+        return levelID;
     }
 
 

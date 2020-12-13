@@ -59,6 +59,9 @@ public class GuiController implements Initializable {
     @FXML
     private Text targetValue;
 
+    @FXML
+    private Text levelID;
+
     private Rectangle[][] displayMatrix;
 
     private InputEventListener eventListener;
@@ -126,6 +129,7 @@ public class GuiController implements Initializable {
         reflection.setTopOffset(-12);
         scoreValue.setEffect(reflection);
         targetValue.setEffect(reflection);
+        levelID.setEffect(reflection);
     }
 
     public void initGameView(int[][] boardMatrix, ViewData brick) {
@@ -259,6 +263,10 @@ public class GuiController implements Initializable {
 
     public void bindTarget(IntegerProperty integerProperty) {
         targetValue.textProperty().bind(integerProperty.asString());
+    }
+
+    public void bindLevelID(IntegerProperty integerProperty) {
+        levelID.textProperty().bind(integerProperty.asString());
     }
 
     public void gameOver() {
