@@ -17,6 +17,11 @@
 
     <VBox layoutX="243" layoutY="20" alignment="CENTER" styleClass="vbox">
         <VBox alignment="CENTER">
+            <Label text="Target:" styleClass="targetClass"/>
+            <Text text="Text" fx:id="targetValue" styleClass="targetClass"/>
+        </VBox>
+
+        <VBox alignment="CENTER">
             <Label text="Score:" styleClass="scoreClass"/>
             <Text text="Text" fx:id="scoreValue" styleClass="scoreClass"/>
         </VBox>

@@ -17,14 +17,16 @@ public class SimpleBoard implements Board {
     private int[][] currentGameMatrix;
     private Point currentOffset;
     private final Score score;
+    private Level level;
 
-    public SimpleBoard(int width, int height) {
+    public SimpleBoard(int width, int height, Level level) {
         this.width = width;
         this.height = height;
         currentGameMatrix = new int[width][height];
         brickGenerator = new RandomBrickGenerator();
         brickRotator = new BrickRotator();
         score = new Score();
+        this.level = level;
     }
 
     @Override
@@ -107,6 +109,12 @@ public class SimpleBoard implements Board {
     }
 
     @Override
+    public void updateLevel(Level toUpdate) {
+        level = toUpdate;
+
+    }
+
+    @Override
     public ClearRow clearRows() {
         ClearRow clearRow = MatrixOperations.checkRemoving(currentGameMatrix);
         currentGameMatrix = clearRow.getNewMatrix();
@@ -119,11 +127,17 @@ public class SimpleBoard implements Board {
         return score;
     }
 
+    @Override
+    public Level getLevel() {
+        return level;
+    }
+
 
     @Override
     public void newGame() {
         currentGameMatrix = new int[width][height];
         score.reset();
+        level.resetLevel();
         createNewBrick();
     }
 }

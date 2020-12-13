@@ -6,6 +6,7 @@ import com.quirko.logic.events.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -54,6 +55,9 @@ public class GuiController implements Initializable {
 
     @FXML
     private GameOverPanel gameOverPanel;
+
+    @FXML
+    private Text targetValue;
 
     private Rectangle[][] displayMatrix;
 
@@ -121,6 +125,7 @@ public class GuiController implements Initializable {
         reflection.setTopOpacity(0.9);
         reflection.setTopOffset(-12);
         scoreValue.setEffect(reflection);
+        targetValue.setEffect(reflection);
     }
 
     public void initGameView(int[][] boardMatrix, ViewData brick) {
@@ -252,6 +257,10 @@ public class GuiController implements Initializable {
         scoreValue.textProperty().bind(integerProperty.asString());
     }
 
+    public void bindTarget(IntegerProperty integerProperty) {
+        targetValue.textProperty().bind(integerProperty.asString());
+    }
+
     public void gameOver() {
         timeLine.stop();
         gameOverPanel.setVisible(true);
@@ -267,6 +276,7 @@ public class GuiController implements Initializable {
         timeLine.play();
         isPause.setValue(Boolean.FALSE);
         isGameOver.setValue(Boolean.FALSE);
+
     }
 
     public void pauseGame(ActionEvent actionEvent) {

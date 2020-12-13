@@ -1,11 +1,16 @@
 package com.quirko.logic;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 public class Level {
 
     private int levelNumber;
-    private double maxPoint;
-    private double currentPoint;
+    private int maxPoint;
+    private int currentPoint;
     private int moveCount;
+    private IntegerProperty target = new SimpleIntegerProperty(0);
 
     //This constructor sets information for the first level. After that, levels increases
     // automatically.
@@ -14,6 +19,7 @@ public class Level {
         this.maxPoint = maxPoint;
         this.currentPoint = 0;
         this.moveCount = 0;
+        target = new SimpleIntegerProperty(maxPoint);
     }
 
 
@@ -26,7 +32,7 @@ public class Level {
         return levelNumber + ". Level";
     }
 
-    public double getMaxPoint() {
+    public int getMaxPoint() {
         return maxPoint;
     }
 
@@ -63,15 +69,24 @@ public class Level {
         moveCount += toBeAdded;
     }
 
+
+
     public double successRate(){
         return currentPoint / moveCount * 20;
     }
 
     public void upgradeLevel(){
         this.levelNumber++;
-        this.maxPoint = maxPoint * 1.2;
+        this.maxPoint = (int) Math.round(maxPoint * 1.2);
+        maxPoint = (maxPoint + 4) / 5 * 5;
+        target.setValue( (maxPoint + 4) / 5 * 5);
         this.currentPoint = 0;
         this.moveCount = 0;
+    }
+
+
+    public IntegerProperty targetProperty() {
+        return target;
     }
 
 

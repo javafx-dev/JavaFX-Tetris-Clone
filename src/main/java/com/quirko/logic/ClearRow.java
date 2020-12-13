@@ -6,6 +6,7 @@ public final class ClearRow {
     private final int[][] newMatrix;
     private final int scoreBonus;
 
+
     public ClearRow(int linesRemoved, int[][] newMatrix, int scoreBonus) {
         this.linesRemoved = linesRemoved;
         this.newMatrix = newMatrix;

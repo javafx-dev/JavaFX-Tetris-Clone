@@ -8,10 +8,11 @@ import com.quirko.logic.events.MoveEvent;
 
 public class GameController implements InputEventListener {
 
-    private Board board = new SimpleBoard(25, 10);
+    private Level level = new Level(25);
+
+    private Board board = new SimpleBoard(25, 10, level);
 
     private final GuiController viewGuiController;
-    private Level level;
 
 
     public GameController(GuiController c) {
@@ -20,8 +21,9 @@ public class GameController implements InputEventListener {
         viewGuiController.setEventListener(this);
         viewGuiController.initGameView(board.getBoardMatrix(), board.getViewData());
         viewGuiController.bindScore(board.getScore().scoreProperty());
+        viewGuiController.bindTarget(board.getLevel().targetProperty());
         //Maxpoint for the first level is 250.
-        level = new Level(250);
+        board.updateLevel(level);
     }
 
     @Override
@@ -30,11 +32,15 @@ public class GameController implements InputEventListener {
         ClearRow clearRow = null;
         if (!canMove) {
             level.addCount(1);
+            board.updateLevel(level);
+
             board.mergeBrickToBackground();
             clearRow = board.clearRows();
             if (clearRow.getLinesRemoved() > 0) {
                 board.getScore().add(clearRow.getScoreBonus());
                 level.addPoint(clearRow.getScoreBonus());
+                board.updateLevel(level);
+
             }
             if (board.createNewBrick()) {
                 System.out.println(level.getName() + " is over. You failed.");
@@ -47,12 +53,15 @@ public class GameController implements InputEventListener {
         } else {
             //this is when player uses down arrow.
             if (event.getEventSource() == EventSource.USER) {
+                level.addPoint(1);
+                board.updateLevel(level);
                 board.getScore().add(1);
             }
         }
         if(level.completed()){
             System.out.println(level.getName() + " is completed.");
             System.out.println(level.successRate());
+            board.getLevel().upgradeLevel();
             createNewGame(true);
         }
         return new DownData(clearRow, board.getViewData());
@@ -81,9 +90,13 @@ public class GameController implements InputEventListener {
     public void createNewGame(boolean isNewLevel) {
         if(isNewLevel){
             level.upgradeLevel();
+            board.updateLevel(level);
+
         }
         else {
             level.resetLevel();
+            board.updateLevel(level);
+
         }
         board.newGame();
         viewGuiController.refreshGameBackground(board.getBoardMatrix());

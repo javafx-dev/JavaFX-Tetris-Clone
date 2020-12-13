@@ -18,9 +18,13 @@ public interface Board {
 
     void mergeBrickToBackground();
 
+    void updateLevel(Level toUpdate);
+
     ClearRow clearRows();
 
     Score getScore();
+
+    Level getLevel();
 
     void newGame();
 }
