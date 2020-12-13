@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class Level {
 
     private int levelNumber;
+    private int maxLevel;
     private int maxPoint;
     private int currentPoint;
     private int moveCount;
@@ -18,12 +19,37 @@ public class Level {
     // automatically.
     public Level(int maxPoint) {
         this.levelNumber = 1;
+        this.maxLevel = 1;
         this.maxPoint = maxPoint;
         this.currentPoint = 0;
         this.moveCount = 0;
         target = new SimpleIntegerProperty(maxPoint);
         levelID= new SimpleIntegerProperty(1);
     }
+
+    public void downgradeLevel(){
+        this.levelNumber -= 1;
+        this.currentPoint = 0;
+        this.moveCount = 0;
+        maxPoint /= 1.2;
+        maxPoint /= 1.2;
+        maxPoint = (maxPoint + 3) / 5 * 5;
+        levelID.setValue(levelNumber);
+        target.setValue(maxPoint);
+    }
+
+    public void levelUp(){
+        System.out.println("Level UP by user");
+        this.levelNumber++;
+        this.maxPoint = (int) Math.round(maxPoint * 1.2);
+        maxPoint *= 1.2;
+        maxPoint = (maxPoint + 4) / 5 * 5;
+        target.setValue( (maxPoint + 4) / 5 * 5);
+        levelID.setValue(levelNumber);
+        this.currentPoint = 0;
+        this.moveCount = 0;
+    }
+
 
 
 
@@ -54,6 +80,7 @@ public class Level {
                 ", maxPoint=" + maxPoint +
                 ", currentPoint=" + currentPoint +
                 ", moveCount=" + moveCount +
+                ", maxLevel=" +maxLevel +
                 '}';
     }
 
@@ -66,10 +93,11 @@ public class Level {
     }
 
     public void resetLevel(){
+        maxLevel = 1;
         levelNumber = 1;
         currentPoint = 0;
         moveCount = 0;
-        maxPoint = 25;
+        maxPoint = 30;
         target.setValue( maxPoint);
         levelID.setValue(1);
         System.out.println("Level resettled");
@@ -90,10 +118,21 @@ public class Level {
         this.levelNumber++;
         this.maxPoint = (int) Math.round(maxPoint * 1.2);
         maxPoint *= 1.2;
+        maxPoint = (maxPoint + 4) / 5 * 5;
         target.setValue( (maxPoint + 4) / 5 * 5);
         levelID.setValue(levelNumber);
         this.currentPoint = 0;
         this.moveCount = 0;
+        this.maxLevel = levelNumber;
+    }
+
+    public boolean canLevelUp(){
+        return maxLevel > levelNumber;
+    }
+
+    public boolean canLevelDown(){
+        if(levelNumber == 1) return false;
+        return maxLevel >= levelNumber;
     }
 
 
@@ -104,6 +143,8 @@ public class Level {
     public IntegerProperty levelIDProperty() {
         return levelID;
     }
+
+
 
 
 }

@@ -95,10 +95,23 @@ public class GuiController implements Initializable {
                         refreshBrick(eventListener.onRotateEvent(new MoveEvent(EventType.ROTATE, EventSource.USER)));
                         keyEvent.consume();
                     }
+
                     if (keyEvent.getCode() == KeyCode.DOWN || keyEvent.getCode() == KeyCode.S) {
                         moveDown(new MoveEvent(EventType.DOWN, EventSource.USER));
                         keyEvent.consume();
                     }
+
+                    //Level Down
+                    if (keyEvent.getCode() == KeyCode.K ) {
+                        refreshBrick(eventListener.onLevelUpEvent(new MoveEvent(EventType.LEVELUP, EventSource.USER)));
+                        keyEvent.consume();
+                    }
+                    //Level Up
+                    if (keyEvent.getCode() == KeyCode.L ) {
+                        refreshBrick(eventListener.onLevelDownEvent(new MoveEvent(EventType.LEVELDOWN, EventSource.USER)));
+                        keyEvent.consume();
+                    }
+
                 }
                 if (keyEvent.getCode() == KeyCode.N) {
                     resetSpeed();
@@ -285,11 +298,12 @@ public class GuiController implements Initializable {
         timeLine.play();
         isPause.setValue(Boolean.FALSE);
         isGameOver.setValue(Boolean.FALSE);
+
     }
 
     public void restartGame(ActionEvent actionEvent) {
+        timeLine.stop();
         gameOverPanel.setVisible(false);
-        eventListener.restartGame();
         gamePanel.requestFocus();
         timeLine.play();
         isPause.setValue(Boolean.FALSE);
@@ -301,15 +315,21 @@ public class GuiController implements Initializable {
     }
 
     public void setSpeed(int level){
-        timeLine.setRate( timeLine.getRate() + (level * 1.0) / 10 );
+        timeLine.setRate( timeLine.getRate() + (level * 1.0 * level) / 20 );
+        System.out.println("Speed: " + timeLine.getRate());
+    }
+
+    public void downShift(int level){
+        timeLine.setRate( timeLine.getRate() - (level * 1.0 * level) / 20 );
         System.out.println("Speed: " + timeLine.getRate());
     }
 
     public void resetSpeed(){
         timeLine.setRate(1.0);
         System.out.println("Speed: " + timeLine.getRate());
-
     }
+
+
 
 
 }

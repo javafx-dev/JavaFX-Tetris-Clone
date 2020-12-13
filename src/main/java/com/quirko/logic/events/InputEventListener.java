@@ -13,6 +13,11 @@ public interface InputEventListener {
 
     ViewData onRotateEvent(MoveEvent event);
 
+    ViewData onLevelUpEvent(MoveEvent event);
+
+    ViewData onLevelDownEvent(MoveEvent event);
+
+
     void createNewGame(boolean isNewLevel);
 
     void restartGame();

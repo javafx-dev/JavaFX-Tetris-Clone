@@ -19,8 +19,6 @@
         <VBox alignment="CENTER">
             <Label text="Target:" styleClass="targetClass"/>
             <Text text="Text" fx:id="targetValue" styleClass="targetClass"/>
-        </VBox>
-        <VBox alignment="CENTER">
             <Label text="Level:" styleClass="levelClass"/>
             <Text text="Text" fx:id="levelID" styleClass="levelClass"/>
         </VBox>
@@ -54,6 +52,16 @@
             <Text styleClass="helpInfo" wrappingWidth="150">
                 <![CDATA[
                 P - pause/resume.
+                ]]>
+            </Text>
+            <Text styleClass="helpInfo" wrappingWidth="150">
+                <![CDATA[
+                K - Level Up ( if reached ).
+                ]]>
+            </Text>
+            <Text styleClass="helpInfo" wrappingWidth="150">
+                <![CDATA[
+                L - Level Down.
                 ]]>
             </Text>
 

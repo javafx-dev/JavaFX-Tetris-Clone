@@ -8,7 +8,7 @@ import com.quirko.logic.events.MoveEvent;
 
 public class GameController implements InputEventListener {
 
-    private Level level = new Level(25);
+    private Level level = new Level(30);
 
     private Board board = new SimpleBoard(25, 10, level);
 
@@ -51,7 +51,6 @@ public class GameController implements InputEventListener {
             }
 
             viewGuiController.refreshGameBackground(board.getBoardMatrix());
-            System.out.println(level);
         } else {
             //this is when player uses down arrow.
             if (event.getEventSource() == EventSource.USER) {
@@ -93,10 +92,8 @@ public class GameController implements InputEventListener {
         if(isNewLevel){
             level.upgradeLevel();
             board.newGame();
-
         }
         else {
-            level.resetLevel();
             board.gameOver();
         }
         board.updateLevel(level);
@@ -108,5 +105,31 @@ public class GameController implements InputEventListener {
         level.resetLevel();
         board.updateLevel(level);
         viewGuiController.refreshGameBackground(board.getBoardMatrix());
+    }
+
+    @Override
+    public ViewData onLevelUpEvent(MoveEvent event) {
+        if(level.canLevelUp()){
+            viewGuiController.setSpeed(level.getLevelNumber());
+            level.levelUp();
+            board.newGame();
+            board.updateLevel(level);
+            viewGuiController.refreshGameBackground(board.getBoardMatrix());
+
+        }
+        return board.getViewData();
+    }
+
+    @Override
+    public ViewData onLevelDownEvent(MoveEvent event) {
+        if(level.canLevelDown()){
+            viewGuiController.downShift(level.getLevelNumber() -1);
+            level.downgradeLevel();
+            board.newGame();
+            board.updateLevel(level);
+            viewGuiController.refreshGameBackground(board.getBoardMatrix());
+
+        }
+        return board.getViewData();
     }
 }
