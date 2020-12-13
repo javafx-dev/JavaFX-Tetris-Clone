@@ -8,7 +8,7 @@ import com.quirko.logic.events.MoveEvent;
 
 public class GameController implements InputEventListener {
 
-    private Level level = new Level(125);
+    private Level level = new Level(25);
 
     private Board board = new SimpleBoard(25, 10, level);
 
@@ -45,6 +45,7 @@ public class GameController implements InputEventListener {
             }
             if (board.createNewBrick()) {
                 System.out.println(level.getName() + " is over. You failed.");
+                viewGuiController.resetSpeed();
                 viewGuiController.gameOver();
                 createNewGame(false);
             }
@@ -61,6 +62,7 @@ public class GameController implements InputEventListener {
         }
         if(level.completed()){
             System.out.println(level.getName() + " is completed.");
+            viewGuiController.setSpeed(level.getLevelNumber());
             System.out.println(level.successRate());
             createNewGame(true);
         }

@@ -61,11 +61,15 @@ public class Level {
         currentPoint += toBeAdded;
     }
 
+    public int getLevelNumber() {
+        return levelNumber;
+    }
+
     public void resetLevel(){
         levelNumber = 1;
         currentPoint = 0;
         moveCount = 0;
-        maxPoint = 125;
+        maxPoint = 25;
         target.setValue( maxPoint);
         levelID.setValue(1);
         System.out.println("Level resettled");

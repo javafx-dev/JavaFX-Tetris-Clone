@@ -101,6 +101,7 @@ public class GuiController implements Initializable {
                     }
                 }
                 if (keyEvent.getCode() == KeyCode.N) {
+                    resetSpeed();
                     newGame(null);
                 }
                 if (keyEvent.getCode() == KeyCode.P) {
@@ -298,4 +299,17 @@ public class GuiController implements Initializable {
     public void pauseGame(ActionEvent actionEvent) {
         gamePanel.requestFocus();
     }
+
+    public void setSpeed(int level){
+        timeLine.setRate( timeLine.getRate() + (level * 1.0) / 10 );
+        System.out.println("Speed: " + timeLine.getRate());
+    }
+
+    public void resetSpeed(){
+        timeLine.setRate(1.0);
+        System.out.println("Speed: " + timeLine.getRate());
+
+    }
+
+
 }
