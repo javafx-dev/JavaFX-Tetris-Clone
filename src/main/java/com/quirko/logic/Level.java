@@ -24,10 +24,10 @@ public class Level {
         this.currentPoint = 0;
         this.moveCount = 0;
         target = new SimpleIntegerProperty(maxPoint);
-        levelID= new SimpleIntegerProperty(1);
+        levelID = new SimpleIntegerProperty(1);
     }
 
-    public void downgradeLevel(){
+    public void downgradeLevel() {
         this.levelNumber -= 1;
         this.currentPoint = 0;
         this.moveCount = 0;
@@ -38,22 +38,19 @@ public class Level {
         target.setValue(maxPoint);
     }
 
-    public void levelUp(){
+    public void levelUp() {
         System.out.println("Level UP by user");
         this.levelNumber++;
         this.maxPoint = (int) Math.round(maxPoint * 1.2);
         maxPoint *= 1.2;
         maxPoint = (maxPoint + 4) / 5 * 5;
-        target.setValue( (maxPoint + 4) / 5 * 5);
+        target.setValue((maxPoint + 4) / 5 * 5);
         levelID.setValue(levelNumber);
         this.currentPoint = 0;
         this.moveCount = 0;
     }
 
-
-
-
-    public boolean completed(){
+    public boolean completed() {
         return currentPoint >= maxPoint;
     }
 
@@ -61,17 +58,6 @@ public class Level {
         return levelNumber + ". Level";
     }
 
-    public int getMaxPoint() {
-        return maxPoint;
-    }
-
-    public double getCurrentPoint() {
-        return currentPoint;
-    }
-
-    public int getMoveCount() {
-        return moveCount;
-    }
 
     @Override
     public String toString() {
@@ -80,11 +66,11 @@ public class Level {
                 ", maxPoint=" + maxPoint +
                 ", currentPoint=" + currentPoint +
                 ", moveCount=" + moveCount +
-                ", maxLevel=" +maxLevel +
+                ", maxLevel=" + maxLevel +
                 '}';
     }
 
-    public void addPoint(int toBeAdded){
+    public void addPoint(int toBeAdded) {
         currentPoint += toBeAdded;
     }
 
@@ -92,46 +78,41 @@ public class Level {
         return levelNumber;
     }
 
-    public void resetLevel(){
+    public void resetLevel() {
         maxLevel = 1;
         levelNumber = 1;
         currentPoint = 0;
         moveCount = 0;
         maxPoint = 30;
-        target.setValue( maxPoint);
+        target.setValue(maxPoint);
         levelID.setValue(1);
         System.out.println("Level resettled");
     }
 
-    public void addCount(int toBeAdded){
+    public void addCount(int toBeAdded) {
         moveCount += toBeAdded;
     }
 
 
-
-    public double successRate(){
-        return currentPoint / moveCount * 20;
-    }
-
-    public void upgradeLevel(){
+    public void upgradeLevel() {
         System.out.println("Level upgraded");
         this.levelNumber++;
         this.maxPoint = (int) Math.round(maxPoint * 1.2);
         maxPoint *= 1.2;
         maxPoint = (maxPoint + 4) / 5 * 5;
-        target.setValue( (maxPoint + 4) / 5 * 5);
+        target.setValue((maxPoint + 4) / 5 * 5);
         levelID.setValue(levelNumber);
         this.currentPoint = 0;
         this.moveCount = 0;
         this.maxLevel = levelNumber;
     }
 
-    public boolean canLevelUp(){
+    public boolean canLevelUp() {
         return maxLevel > levelNumber;
     }
 
-    public boolean canLevelDown(){
-        if(levelNumber == 1) return false;
+    public boolean canLevelDown() {
+        if (levelNumber == 1) return false;
         return maxLevel >= levelNumber;
     }
 
@@ -143,8 +124,6 @@ public class Level {
     public IntegerProperty levelIDProperty() {
         return levelID;
     }
-
-
 
 
 }

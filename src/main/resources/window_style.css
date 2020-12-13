@@ -64,6 +64,12 @@
     -fx-background-color: red;
 }
 
+.levelSuccesStyle {
+    -fx-font-family: "Let's go Digital";
+    -fx-font-size: 48;
+    -fx-background-color: #11d75c;
+}
+
 .scoreClass{
     -fx-font-family: "Let's go Digital";
     -fx-font-size: 30;

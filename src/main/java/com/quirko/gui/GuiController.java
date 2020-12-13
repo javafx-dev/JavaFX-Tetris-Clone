@@ -30,6 +30,7 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 public class GuiController implements Initializable {
 
@@ -55,6 +56,9 @@ public class GuiController implements Initializable {
 
     @FXML
     private GameOverPanel gameOverPanel;
+
+    @FXML
+    public LevelSuccesPanel levelSuccPanel;
 
     @FXML
     private Text targetValue;
@@ -102,12 +106,12 @@ public class GuiController implements Initializable {
                     }
 
                     //Level Down
-                    if (keyEvent.getCode() == KeyCode.K ) {
+                    if (keyEvent.getCode() == KeyCode.K) {
                         refreshBrick(eventListener.onLevelUpEvent(new MoveEvent(EventType.LEVELUP, EventSource.USER)));
                         keyEvent.consume();
                     }
                     //Level Up
-                    if (keyEvent.getCode() == KeyCode.L ) {
+                    if (keyEvent.getCode() == KeyCode.L) {
                         refreshBrick(eventListener.onLevelDownEvent(new MoveEvent(EventType.LEVELDOWN, EventSource.USER)));
                         keyEvent.consume();
                     }
@@ -117,12 +121,23 @@ public class GuiController implements Initializable {
                     resetSpeed();
                     newGame(null);
                 }
+
+                //Continue to Play
+                if (keyEvent.getCode() == KeyCode.C) {
+                    if (!levelSuccPanel.isDisabled())
+                        isPause.setValue(Boolean.FALSE);
+
+                    closeLevelLabel();
+                    timeLine.play();
+
+                }
                 if (keyEvent.getCode() == KeyCode.P) {
                     pauseButton.selectedProperty().setValue(!pauseButton.selectedProperty().getValue());
                 }
 
             }
         });
+        levelSuccPanel.setVisible(false);
         gameOverPanel.setVisible(false);
         pauseButton.selectedProperty().bindBidirectional(isPause);
         pauseButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -290,6 +305,16 @@ public class GuiController implements Initializable {
 
     }
 
+    public void nextGame(int matrixCOUNT) {
+        levelSuccPanel.setLeftMatrixCount(matrixCOUNT);
+        levelSuccPanel.setVisible(true);
+        timeLine.stop();
+        gamePanel.requestFocus();
+        isPause.setValue(Boolean.TRUE);
+
+
+    }
+
     public void newGame(ActionEvent actionEvent) {
         timeLine.stop();
         gameOverPanel.setVisible(false);
@@ -301,35 +326,31 @@ public class GuiController implements Initializable {
 
     }
 
-    public void restartGame(ActionEvent actionEvent) {
-        timeLine.stop();
-        gameOverPanel.setVisible(false);
-        gamePanel.requestFocus();
-        timeLine.play();
-        isPause.setValue(Boolean.FALSE);
-        isGameOver.setValue(Boolean.FALSE);
-    }
 
     public void pauseGame(ActionEvent actionEvent) {
         gamePanel.requestFocus();
     }
 
-    public void setSpeed(int level){
-        timeLine.setRate( timeLine.getRate() + (level * 1.0 * level) / 20 );
+    public void setSpeed(int level) {
+        timeLine.setRate(timeLine.getRate() + (level * 1.0 * level) / 30);
         System.out.println("Speed: " + timeLine.getRate());
     }
 
-    public void downShift(int level){
-        timeLine.setRate( timeLine.getRate() - (level * 1.0 * level) / 20 );
+    public void downShift(int level) {
+        timeLine.setRate(timeLine.getRate() - (level * 1.0 * level) / 30);
         System.out.println("Speed: " + timeLine.getRate());
     }
 
-    public void resetSpeed(){
+    public void resetSpeed() {
         timeLine.setRate(1.0);
         System.out.println("Speed: " + timeLine.getRate());
     }
 
 
+    public void closeLevelLabel() {
+        levelSuccPanel.setVisible(false);
+        timeLine.play();
 
 
+    }
 }

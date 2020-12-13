@@ -29,4 +29,6 @@ public interface Board {
     void newGame();
 
     void gameOver();
+
+    void nextGame();
 }

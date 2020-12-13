@@ -6,6 +6,9 @@ import com.quirko.logic.events.EventSource;
 import com.quirko.logic.events.InputEventListener;
 import com.quirko.logic.events.MoveEvent;
 
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
+
 public class GameController implements InputEventListener {
 
     private Level level = new Level(30);
@@ -62,7 +65,6 @@ public class GameController implements InputEventListener {
         if(level.completed()){
             System.out.println(level.getName() + " is completed.");
             viewGuiController.setSpeed(level.getLevelNumber());
-            System.out.println(level.successRate());
             createNewGame(true);
         }
         return new DownData(clearRow, board.getViewData());
@@ -89,9 +91,12 @@ public class GameController implements InputEventListener {
 
     @Override
     public void createNewGame(boolean isNewLevel) {
+        countOfFilledMatrix();
         if(isNewLevel){
             level.upgradeLevel();
-            board.newGame();
+            viewGuiController.nextGame(countOfFilledMatrix());
+            board.nextGame();
+
         }
         else {
             board.gameOver();
@@ -100,12 +105,6 @@ public class GameController implements InputEventListener {
         viewGuiController.refreshGameBackground(board.getBoardMatrix());
     }
 
-    @Override
-    public void restartGame(){
-        level.resetLevel();
-        board.updateLevel(level);
-        viewGuiController.refreshGameBackground(board.getBoardMatrix());
-    }
 
     @Override
     public ViewData onLevelUpEvent(MoveEvent event) {
@@ -131,5 +130,20 @@ public class GameController implements InputEventListener {
 
         }
         return board.getViewData();
+    }
+
+    public int countOfFilledMatrix(){
+        int filledCount = 0;
+        //250 is the matrix size. x * y dimensions of the game.
+        for(int i = 0; i < 25; i++){
+            for(int x = 0; x< 10; x++){
+                if( board.getBoardMatrix()[i][x] != 0){
+                    filledCount++;
+                }
+            }
+        }
+        System.out.println("Left matrix: " + filledCount);
+        viewGuiController.levelSuccPanel.setLeftMatrixCount(filledCount);
+        return filledCount;
     }
 }

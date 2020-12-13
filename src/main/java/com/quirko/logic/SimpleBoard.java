@@ -147,4 +147,11 @@ public class SimpleBoard implements Board {
         level.resetLevel();
         createNewBrick();
     }
+
+    @Override
+    public void nextGame() {
+        currentGameMatrix = new int[width][height];
+        score.reset();
+        createNewBrick();
+    }
 }

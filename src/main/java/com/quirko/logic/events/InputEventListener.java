@@ -17,8 +17,6 @@ public interface InputEventListener {
 
     ViewData onLevelDownEvent(MoveEvent event);
 
-
     void createNewGame(boolean isNewLevel);
 
-    void restartGame();
 }
