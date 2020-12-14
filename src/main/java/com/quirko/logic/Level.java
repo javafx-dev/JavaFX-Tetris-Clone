@@ -104,7 +104,7 @@ public class Level {
         levelNumber = 1;
         currentPoint = 0;
         moveCount = 0;
-        maxPoint = 30;
+        maxPoint = 70;
         target.setValue(maxPoint);
         levelID.setValue(1);
         System.out.println("Level resettled");

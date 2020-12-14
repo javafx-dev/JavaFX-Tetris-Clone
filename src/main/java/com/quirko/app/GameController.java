@@ -9,7 +9,7 @@ import com.quirko.logic.events.MoveEvent;
 
 public class GameController implements InputEventListener {
 
-    private Level level = new Level(30);
+    private Level level = new Level(70);
 
     private Board board = new SimpleBoard(25, 10, level);
 
