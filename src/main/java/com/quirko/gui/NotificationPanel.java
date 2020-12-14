@@ -16,7 +16,7 @@ import javafx.util.Duration;
 
 public class NotificationPanel extends BorderPane {
 
-    public NotificationPanel(String text) {
+    public NotificationPanel(String text) {     //BUNUN KULLANIMI FELAN
         setMinHeight(200);
         setMinWidth(220);
         final Label score = new Label(text);
@@ -43,4 +43,5 @@ public class NotificationPanel extends BorderPane {
         });
         transition.play();
     }
+
 }

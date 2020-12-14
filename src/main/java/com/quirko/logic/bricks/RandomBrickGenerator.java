@@ -21,6 +21,17 @@ public class RandomBrickGenerator implements BrickGenerator {
         brickList.add(new SBrick());
         brickList.add(new TBrick());
         brickList.add(new ZBrick());
+        /*
+        brickList.add(new IBrick());
+        brickList.add(new JBrick());
+        brickList.add(new LBrick());
+        brickList.add(new OBrick());
+        brickList.add(new SBrick());
+        brickList.add(new TBrick());
+        brickList.add(new ZBrick());*/
+        brickList.add(new SPECIALBrick());
+        brickList.add(new SPECIALBrick2());
+        brickList.add(new VERYSPECIALBrick());
         nextBricks.add(brickList.get(ThreadLocalRandom.current().nextInt(brickList.size())));
         nextBricks.add(brickList.get(ThreadLocalRandom.current().nextInt(brickList.size())));
     }

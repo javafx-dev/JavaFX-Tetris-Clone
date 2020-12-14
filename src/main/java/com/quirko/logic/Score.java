@@ -12,6 +12,9 @@ public final class Score {
     }
 
     public void add(int i){
+        if(SuperPoint.point.getValue()>0)
+        score.setValue(score.getValue() + i*SuperPoint.point.getValue());
+        else
         score.setValue(score.getValue() + i);
     }
 

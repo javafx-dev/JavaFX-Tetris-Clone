@@ -41,6 +41,9 @@ public class GuiController implements Initializable {
     private Text scoreValue;
 
     @FXML
+    private Text superPointValue;
+
+    @FXML
     private Group groupNotification;
 
     @FXML
@@ -54,6 +57,9 @@ public class GuiController implements Initializable {
 
     @FXML
     private GameOverPanel gameOverPanel;
+
+    @FXML
+    private VERY_SPECIAL_Panel VERYSPECIAL_Panel;
 
     private Rectangle[][] displayMatrix;
 
@@ -99,10 +105,19 @@ public class GuiController implements Initializable {
                 if (keyEvent.getCode() == KeyCode.P) {
                     pauseButton.selectedProperty().setValue(!pauseButton.selectedProperty().getValue());
                 }
-
+                if(keyEvent.getCode() == KeyCode.V){
+                        if(!VERYSPECIAL_Panel.isVisible()){
+                            timeLine.pause();
+                            VERYSPECIAL_Panel.setVisible(true);
+                        } else{
+                            VERYSPECIAL_Panel.setVisible(false);
+                            timeLine.play();
+                        }
+                }
             }
         });
         gameOverPanel.setVisible(false);
+        VERYSPECIAL_Panel.setVisible(false);
         pauseButton.selectedProperty().bindBidirectional(isPause);
         pauseButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -121,6 +136,7 @@ public class GuiController implements Initializable {
         reflection.setTopOpacity(0.9);
         reflection.setTopOffset(-12);
         scoreValue.setEffect(reflection);
+        superPointValue.setEffect(reflection);
     }
 
     public void initGameView(int[][] boardMatrix, ViewData brick) {
@@ -179,10 +195,13 @@ public class GuiController implements Initializable {
                 returnPaint = Color.RED;
                 break;
             case 6:
-                returnPaint = Color.BEIGE;
+                returnPaint = Color.PINK;
                 break;
             case 7:
                 returnPaint = Color.BURLYWOOD;
+                break;
+            case 8 : 
+                returnPaint = Color.BLACK.desaturate().desaturate();
                 break;
             default:
                 returnPaint = Color.WHITE;
@@ -234,8 +253,13 @@ public class GuiController implements Initializable {
     private void moveDown(MoveEvent event) {
         if (isPause.getValue() == Boolean.FALSE) {
             DownData downData = eventListener.onDownEvent(event);
-            if (downData.getClearRow() != null && downData.getClearRow().getLinesRemoved() > 0) {
+            if ((downData.getClearRow() != null && downData.getClearRow().getLinesRemoved() > 0)) {
                 NotificationPanel notificationPanel = new NotificationPanel("+" + downData.getClearRow().getScoreBonus());
+                groupNotification.getChildren().add(notificationPanel);
+                notificationPanel.showScore(groupNotification.getChildren());
+            }
+            else if ( downData.getClearColor()!=null ){
+                NotificationPanel notificationPanel = new NotificationPanel("+" + downData.getClearColor().getScoreBonus());
                 groupNotification.getChildren().add(notificationPanel);
                 notificationPanel.showScore(groupNotification.getChildren());
             }
@@ -244,12 +268,17 @@ public class GuiController implements Initializable {
         gamePanel.requestFocus();
     }
 
+
     public void setEventListener(InputEventListener eventListener) {
         this.eventListener = eventListener;
     }
 
     public void bindScore(IntegerProperty integerProperty) {
         scoreValue.textProperty().bind(integerProperty.asString());
+    }
+
+    public void bindSuperPoint(IntegerProperty integerProperty) {
+        superPointValue.textProperty().bind(integerProperty.asString());
     }
 
     public void gameOver() {
@@ -268,6 +297,7 @@ public class GuiController implements Initializable {
         isPause.setValue(Boolean.FALSE);
         isGameOver.setValue(Boolean.FALSE);
     }
+
 
     public void pauseGame(ActionEvent actionEvent) {
         gamePanel.requestFocus();

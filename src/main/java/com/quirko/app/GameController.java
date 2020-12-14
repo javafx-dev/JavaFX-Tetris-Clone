@@ -12,26 +12,47 @@ public class GameController implements InputEventListener {
 
     private final GuiController viewGuiController;
 
+
     public GameController(GuiController c) {
         viewGuiController = c;
         board.createNewBrick();
         viewGuiController.setEventListener(this);
         viewGuiController.initGameView(board.getBoardMatrix(), board.getViewData());
         viewGuiController.bindScore(board.getScore().scoreProperty());
+        viewGuiController.bindSuperPoint(board.getSuperPoint().pointProperty());
     }
 
     @Override
     public DownData onDownEvent(MoveEvent event) {
         boolean canMove = board.moveBrickDown();
         ClearRow clearRow = null;
+        ClearColor clearColor = null;
+        
+
         if (!canMove) {
             board.mergeBrickToBackground();
-            clearRow = board.clearRows();
-            if (clearRow.getLinesRemoved() > 0) {
-                board.getScore().add(clearRow.getScoreBonus());
+
+            if(SimpleBoard.colorCode!=0){
+                clearColor = board.clearColors();
+                board.getScore().add(clearColor.getScoreBonus());
+                if (board.createNewBrick()) {
+                    viewGuiController.gameOver();
+                }
             }
-            if (board.createNewBrick()) {
-                viewGuiController.gameOver();
+
+            else{
+                clearRow = board.clearRows();
+                if (clearRow.getLinesRemoved() > 0) {
+                    board.getScore().add(clearRow.getScoreBonus());
+                }
+                if (board.createNewBrick()) {
+                    viewGuiController.gameOver();
+                }
+            }
+        
+            if(board.isTouched()){
+                    board.getSuperPoint().add(1);
+                    SimpleBoard.RightTouched=SimpleBoard.LeftTouched=false;
             }
 
             viewGuiController.refreshGameBackground(board.getBoardMatrix());
@@ -41,7 +62,12 @@ public class GameController implements InputEventListener {
                 board.getScore().add(1);
             }
         }
-        return new DownData(clearRow, board.getViewData());
+
+        if(SimpleBoard.colorCode!=0)
+        return new DownData(clearRow, board.getViewData(), clearColor);
+        else
+        return new DownData(clearColor, board.getViewData(), clearRow);
+        
     }
 
     @Override

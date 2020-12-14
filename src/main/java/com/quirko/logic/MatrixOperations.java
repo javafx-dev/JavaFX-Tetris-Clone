@@ -89,11 +89,47 @@ public class MatrixOperations {
             }
         }
         int scoreBonus = 50 * clearedRows.size() * clearedRows.size();
+        if(scoreBonus*SuperPoint.point.getValue()!=0) scoreBonus*=SuperPoint.point.getValue();
         return new ClearRow(clearedRows.size(), tmp, scoreBonus);
     }
+
+    public static ClearColor checkRemoving2(final int[][] matrix, int colorCode) {
+        int clearedColors =0;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {            
+                if(matrix[i][j] == colorCode){
+                    clearedColors++;
+                    matrix[i][j]=0;
+
+                    for (int j2 = 0; j2 < matrix.length; j2++) {
+                        for (int k = 0; k < matrix[0].length; k++) {
+                            if(matrix[j2][k]==8)
+                            matrix[j2][k]=0;
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+        int scoreBonus = 10 * clearedColors;
+        if(scoreBonus*SuperPoint.point.getValue()!=0) scoreBonus*=SuperPoint.point.getValue();
+        return new ClearColor(matrix, scoreBonus);
+    }
+
 
     public static List<int[][]> deepCopyList(List<int[][]> list){
         return list.stream().map(MatrixOperations::copy).collect(Collectors.toList());
     }
+
+
+    public static boolean isSpecial(int[][] matrix){
+            return matrix[0][0]==8;
+    }
+
+    public static boolean isVerySpecial(int[][] matrix){
+        return matrix[1][1]==8;
+}
 
 }

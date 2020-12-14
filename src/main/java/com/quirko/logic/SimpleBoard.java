@@ -15,8 +15,12 @@ public class SimpleBoard implements Board {
     private final BrickGenerator brickGenerator;
     private final BrickRotator brickRotator;
     private int[][] currentGameMatrix;
+    public static int colorCode;
     private Point currentOffset;
     private final Score score;
+    private SuperPoint point;
+    public static boolean RightTouched=false;
+	public static boolean LeftTouched=false;
 
     public SimpleBoard(int width, int height) {
         this.width = width;
@@ -25,6 +29,9 @@ public class SimpleBoard implements Board {
         brickGenerator = new RandomBrickGenerator();
         brickRotator = new BrickRotator();
         score = new Score();
+        point = new SuperPoint();
+        RightTouched=false;
+        LeftTouched=false;
     }
 
     @Override
@@ -32,6 +39,9 @@ public class SimpleBoard implements Board {
         int[][] currentMatrix = MatrixOperations.copy(currentGameMatrix);
         Point p = new Point(currentOffset);
         p.translate(0, 1);
+        if(MatrixOperations.isSpecial(brickRotator.getCurrentShape())) colorCode=brickRotator.getCurrentShape()[1][1];
+        else colorCode=0;
+
         boolean conflict = MatrixOperations.intersect(currentMatrix, brickRotator.getCurrentShape(), (int) p.getX(), (int) p.getY());
         if (conflict) {
             return false;
@@ -41,14 +51,16 @@ public class SimpleBoard implements Board {
         }
     }
 
-
     @Override
     public boolean moveBrickLeft() {
         int[][] currentMatrix = MatrixOperations.copy(currentGameMatrix);
         Point p = new Point(currentOffset);
+        if(MatrixOperations.isSpecial(brickRotator.getCurrentShape()))return false;
         p.translate(-1, 0);
         boolean conflict = MatrixOperations.intersect(currentMatrix, brickRotator.getCurrentShape(), (int) p.getX(), (int) p.getY());
         if (conflict) {
+            if(MatrixOperations.isVerySpecial(brickRotator.getCurrentShape()))
+                LeftTouched = true; 
             return false;
         } else {
             currentOffset = p;
@@ -60,9 +72,12 @@ public class SimpleBoard implements Board {
     public boolean moveBrickRight() {
         int[][] currentMatrix = MatrixOperations.copy(currentGameMatrix);
         Point p = new Point(currentOffset);
+        if(MatrixOperations.isSpecial(brickRotator.getCurrentShape()))return false;
         p.translate(1, 0);
         boolean conflict = MatrixOperations.intersect(currentMatrix, brickRotator.getCurrentShape(), (int) p.getX(), (int) p.getY());
         if (conflict) {
+            if(MatrixOperations.isVerySpecial(brickRotator.getCurrentShape()))
+                RightTouched = true; 
             return false;
         } else {
             currentOffset = p;
@@ -74,6 +89,7 @@ public class SimpleBoard implements Board {
     public boolean rotateLeftBrick() {
         int[][] currentMatrix = MatrixOperations.copy(currentGameMatrix);
         NextShapeInfo nextShape = brickRotator.getNextShape();
+        if(MatrixOperations.isSpecial(brickRotator.getCurrentShape())) colorCode=brickRotator.getCurrentShape()[1][1];
         boolean conflict = MatrixOperations.intersect(currentMatrix, nextShape.getShape(), (int) currentOffset.getX(), (int) currentOffset.getY());
         if (conflict) {
             return false;
@@ -96,6 +112,10 @@ public class SimpleBoard implements Board {
         return currentGameMatrix;
     }
 
+    public Brick getBrick(){
+        return brickGenerator.getBrick();
+    }
+
     @Override
     public ViewData getViewData() {
         return new ViewData(brickRotator.getCurrentShape(), (int) currentOffset.getX(), (int) currentOffset.getY(), brickGenerator.getNextBrick().getShapeMatrix().get(0));
@@ -114,8 +134,19 @@ public class SimpleBoard implements Board {
 
     }
 
+    public ClearColor clearColors() {
+        ClearColor clearColor = MatrixOperations.checkRemoving2(currentGameMatrix,colorCode);
+        currentGameMatrix = clearColor.getNewMatrix();
+        return clearColor;
+
+    }
+
+    public SuperPoint getSuperPoint(){
+        return point;
+    }
+
     @Override
-    public Score getScore() {
+    public Score getScore(){ 
         return score;
     }
 
@@ -124,6 +155,17 @@ public class SimpleBoard implements Board {
     public void newGame() {
         currentGameMatrix = new int[width][height];
         score.reset();
+        point.reset();
         createNewBrick();
+    }
+
+
+    public boolean isTouched(){
+        return RightTouched&&LeftTouched;
+    }
+    
+    public void makeUntouched() {
+        RightTouched = false;
+        LeftTouched = false;
     }
 }

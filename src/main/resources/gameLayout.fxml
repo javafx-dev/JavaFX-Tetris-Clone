@@ -1,4 +1,5 @@
 <?import com.quirko.gui.GameOverPanel?>
+<?import com.quirko.gui.VERY_SPECIAL_Panel?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ToggleButton?>
@@ -20,6 +21,12 @@
             <Label text="Score:" styleClass="scoreClass"/>
             <Text text="Text" fx:id="scoreValue" styleClass="scoreClass"/>
         </VBox>
+
+        <VBox alignment="CENTER">
+            <Label text="SprPoint:" styleClass="superPointClass"/>
+            <Text text="Text" fx:id="superPointValue" styleClass="superPointClass"/>
+        </VBox>
+
         <VBox alignment="CENTER">
             <Label text="Next brick" styleClass="nextBrickLabel"/>
             <BorderPane styleClass="nextBrick" prefWidth="100" prefHeight="70" maxWidth="100">
@@ -48,14 +55,33 @@
                 P - pause/resume.
                 ]]>
             </Text>
+            <Text styleClass="helpInfo" wrappingWidth="150">
+                <![CDATA[
+                
+                ]]>
+            </Text>
+
+            <Text styleClass="helpInfo" wrappingWidth="150">
+                <![CDATA[
+                V - About Special Drops
+                ]]>
+            </Text>
 
         </VBox>
     </VBox>
+
     <Group fx:id="groupNotification" layoutX="14" layoutY="203">
         <VBox alignment="CENTER">
             <GameOverPanel fx:id="gameOverPanel"/>
         </VBox>
     </Group>
+
+    <Group fx:id="groupNotification" layoutX="14" layoutY="120">
+        <VBox alignment="CENTER">
+            <VERY_SPECIAL_Panel fx:id="VERYSPECIAL_Panel"/>
+        </VBox>
+    </Group>
+
     <stylesheets>
         <URL value="@window_style.css"/>
     </stylesheets>

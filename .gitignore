@@ -2,3 +2,6 @@
 .sonar
 target
 jar_builder.bat
+.classpath
+.project
+.settings/

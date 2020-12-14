@@ -20,7 +20,13 @@ public interface Board {
 
     ClearRow clearRows();
 
+    ClearColor clearColors();
+
     Score getScore();
 
+    SuperPoint getSuperPoint();
+
     void newGame();
+
+    boolean isTouched();
 }
