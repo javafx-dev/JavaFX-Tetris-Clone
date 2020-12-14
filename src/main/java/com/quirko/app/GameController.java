@@ -6,8 +6,6 @@ import com.quirko.logic.events.EventSource;
 import com.quirko.logic.events.InputEventListener;
 import com.quirko.logic.events.MoveEvent;
 
-import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 public class GameController implements InputEventListener {
 

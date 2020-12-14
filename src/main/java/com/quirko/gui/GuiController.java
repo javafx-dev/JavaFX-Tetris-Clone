@@ -6,7 +6,6 @@ import com.quirko.logic.events.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -30,7 +29,6 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 public class GuiController implements Initializable {
 

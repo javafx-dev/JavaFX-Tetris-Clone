@@ -1,6 +1,5 @@
 package com.quirko.logic;
 
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -11,8 +10,8 @@ public class Level {
     private int maxPoint;
     private int currentPoint;
     private int moveCount;
-    private IntegerProperty target = new SimpleIntegerProperty(0);
-    private IntegerProperty levelID = new SimpleIntegerProperty(0);
+    private IntegerProperty target;
+    private IntegerProperty levelID;
 
 
     //This constructor sets information for the first level. After that, levels increases
@@ -27,6 +26,27 @@ public class Level {
         levelID = new SimpleIntegerProperty(1);
     }
 
+
+    public int getLevelNumber() {
+        return levelNumber;
+    }
+
+
+    public int getMaxLevel() {
+        return maxLevel;
+    }
+
+
+    public int getCurrentPoint() {
+        return currentPoint;
+    }
+
+
+    public int getMoveCount() {
+        return moveCount;
+    }
+
+
     public void downgradeLevel() {
         this.levelNumber -= 1;
         this.currentPoint = 0;
@@ -38,21 +58,24 @@ public class Level {
         target.setValue(maxPoint);
     }
 
+
     public void levelUp() {
         System.out.println("Level UP by user");
         this.levelNumber++;
         this.maxPoint = (int) Math.round(maxPoint * 1.2);
         maxPoint *= 1.2;
         maxPoint = (maxPoint + 4) / 5 * 5;
-        target.setValue((maxPoint + 4) / 5 * 5);
+        target.setValue(maxPoint);
         levelID.setValue(levelNumber);
         this.currentPoint = 0;
         this.moveCount = 0;
     }
 
+
     public boolean completed() {
         return currentPoint >= maxPoint;
     }
+
 
     public String getName() {
         return levelNumber + ". Level";
@@ -70,13 +93,11 @@ public class Level {
                 '}';
     }
 
+
     public void addPoint(int toBeAdded) {
         currentPoint += toBeAdded;
     }
 
-    public int getLevelNumber() {
-        return levelNumber;
-    }
 
     public void resetLevel() {
         maxLevel = 1;
@@ -88,6 +109,7 @@ public class Level {
         levelID.setValue(1);
         System.out.println("Level resettled");
     }
+
 
     public void addCount(int toBeAdded) {
         moveCount += toBeAdded;
@@ -107,9 +129,11 @@ public class Level {
         this.maxLevel = levelNumber;
     }
 
+
     public boolean canLevelUp() {
         return maxLevel > levelNumber;
     }
+
 
     public boolean canLevelDown() {
         if (levelNumber == 1) return false;
@@ -121,9 +145,9 @@ public class Level {
         return target;
     }
 
+
     public IntegerProperty levelIDProperty() {
         return levelID;
     }
-
 
 }
