@@ -28,7 +28,9 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.text.BreakIterator;
 import java.util.ResourceBundle;
+import com.quirko.logic.Sound;
 
 public class GuiController implements Initializable {
 
@@ -92,13 +94,23 @@ public class GuiController implements Initializable {
                         moveDown(new MoveEvent(EventType.DOWN, EventSource.USER));
                         keyEvent.consume();
                     }
-                }
+                    if  (keyEvent.getCode() == KeyCode.G){
+                        refreshBrick(eventListener.onRotateEventSuper(new MoveEvent(EventType.ROTATESUPER, EventSource.USER),'G'));
+                        keyEvent.consume();
+                        }
+
+                    if  (keyEvent.getCode() == KeyCode.H){
+                        refreshBrick(eventListener.onRotateEventSuper(new MoveEvent(EventType.ROTATESUPER, EventSource.USER),'H'));
+                        keyEvent.consume();
+                        }
+                    }
+            
                 if (keyEvent.getCode() == KeyCode.N) {
                     newGame(null);
                 }
                 if (keyEvent.getCode() == KeyCode.P) {
                     pauseButton.selectedProperty().setValue(!pauseButton.selectedProperty().getValue());
-                }
+                } 
 
             }
         });
@@ -129,7 +141,7 @@ public class GuiController implements Initializable {
             for (int j = 0; j < boardMatrix[i].length; j++) {
                 Rectangle rectangle = new Rectangle(BRICK_SIZE, BRICK_SIZE);
                 rectangle.setFill(Color.TRANSPARENT);
-                displayMatrix[i][j] = rectangle;
+                displayMatrix[i][j] = rectangle;            //2,5
                 gamePanel.add(rectangle, j, i - 2);
             }
         }
@@ -183,6 +195,9 @@ public class GuiController implements Initializable {
                 break;
             case 7:
                 returnPaint = Color.BURLYWOOD;
+                break;
+            case 8:
+                returnPaint = Color.BLACK;
                 break;
             default:
                 returnPaint = Color.WHITE;

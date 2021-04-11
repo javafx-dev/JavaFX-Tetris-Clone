@@ -33,7 +33,7 @@ public class GameController implements InputEventListener {
             if (board.createNewBrick()) {
                 viewGuiController.gameOver();
             }
-
+            
             viewGuiController.refreshGameBackground(board.getBoardMatrix());
 
         } else {
@@ -59,6 +59,12 @@ public class GameController implements InputEventListener {
     @Override
     public ViewData onRotateEvent(MoveEvent event) {
         board.rotateLeftBrick();
+        return board.getViewData();
+    }
+
+    @Override
+    public ViewData onRotateEventSuper(MoveEvent event, char key){
+        board.rotateLeftBrickSuper(key);
         return board.getViewData();
     }
 

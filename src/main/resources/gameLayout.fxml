@@ -48,6 +48,17 @@
                 P - pause/resume.
                 ]]>
             </Text>
+                        <Text styleClass="helpInfo" wrappingWidth="150">
+                <![CDATA[
+                G - Use special power of the black linear item.
+                ]]>
+            </Text>
+             </Text>
+                        <Text styleClass="helpInfo" wrappingWidth="150">
+                <![CDATA[
+                H - Use special power of the black wave item.
+                ]]>
+            </Text>
 
         </VBox>
     </VBox>

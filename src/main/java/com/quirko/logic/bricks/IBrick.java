@@ -8,6 +8,7 @@ import java.util.List;
 final class IBrick implements Brick {
 
     private final List<int[][]> brickMatrix = new ArrayList<>();
+    public boolean isSuper=false;
 
     public IBrick() {
         brickMatrix.add(new int[][]{

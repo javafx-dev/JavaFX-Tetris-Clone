@@ -5,6 +5,7 @@ import com.quirko.logic.bricks.BrickGenerator;
 import com.quirko.logic.bricks.RandomBrickGenerator;
 import com.quirko.logic.rotator.BrickRotator;
 import com.quirko.logic.rotator.NextShapeInfo;
+import com.quirko.logic.Sound;
 
 import java.awt.*;
 
@@ -17,6 +18,8 @@ public class SimpleBoard implements Board {
     private int[][] currentGameMatrix;
     private Point currentOffset;
     private final Score score;
+    private static boolean stillSuper=false;
+   
 
     public SimpleBoard(int width, int height) {
         this.width = width;
@@ -40,6 +43,11 @@ public class SimpleBoard implements Board {
             return true;
         }
     }
+
+    /*public boolean moveBrickNext(){
+        int[][] currentMatrix = MatrixOperations.copy(currentGameMatrix);
+        return MatrixOperations.isShapeChangerBrick(currentMatrix);
+    }*/
 
 
     @Override
@@ -72,16 +80,55 @@ public class SimpleBoard implements Board {
 
     @Override
     public boolean rotateLeftBrick() {
+        stillSuper=false;
         int[][] currentMatrix = MatrixOperations.copy(currentGameMatrix);
         NextShapeInfo nextShape = brickRotator.getNextShape();
         boolean conflict = MatrixOperations.intersect(currentMatrix, nextShape.getShape(), (int) currentOffset.getX(), (int) currentOffset.getY());
         if (conflict) {
             return false;
         } else {
+            if(!MatrixOperations.isShapeChangerBrick(brickRotator.getCurrentShape())&&!stillSuper){
             brickRotator.setCurrentShape(nextShape.getPosition());
+            stillSuper=false;
             return true;
         }
+            else{
+                stillSuper=true;
+                return true;
+            } 
+        }
     }
+
+    @Override
+    public boolean rotateLeftBrickSuper(char key) {
+        int[][] currentMatrix = MatrixOperations.copy(currentGameMatrix);
+        NextShapeInfo nextShape = brickRotator.getNextShape();
+        boolean conflict = MatrixOperations.intersect(currentMatrix, nextShape.getShape(), (int) currentOffset.getX(), (int) currentOffset.getY());
+        if (conflict) {
+            return false;
+        } else {
+            if(!MatrixOperations.isShapeChangerBrick(brickRotator.getCurrentShape())&&!stillSuper){
+            stillSuper=false;
+            return true;
+        }
+            else{
+                if( (key=='H'&&MatrixOperations.isShapeChangerBrickV2(brickRotator.getCurrentShape())) 
+                || key=='G'&& MatrixOperations.isShapeChangerBrick(brickRotator.getCurrentShape())  || stillSuper){
+                    boolean bound = MatrixOperations.checkOutOfBound(currentMatrix,(int)currentOffset.getX(),(int)currentOffset.getY());
+                    if(!bound){
+                        Sound.PlaySound("src/main/resources/sounds/SoundOne.wav");
+                        brickRotator.setBrick(brickGenerator.getNextBrick());
+                        brickGenerator.getBrick();
+                        brickGenerator.getNextBrick();
+                        stillSuper=true;
+                    }
+                }
+                return true;
+            } 
+        }
+    }
+
+
 
     @Override
     public boolean createNewBrick() {

@@ -6,6 +6,8 @@ import java.util.Deque;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.quirko.logic.Sound;
+
 public class RandomBrickGenerator implements BrickGenerator {
 
     private final List<Brick> brickList;
@@ -14,13 +16,15 @@ public class RandomBrickGenerator implements BrickGenerator {
 
     public RandomBrickGenerator() {
         brickList = new ArrayList<>();
-        brickList.add(new IBrick());
-        brickList.add(new JBrick());
-        brickList.add(new LBrick());
-        brickList.add(new OBrick());
-        brickList.add(new SBrick());
-        brickList.add(new TBrick());
-        brickList.add(new ZBrick());
+        brickList.add(new IBrick());brickList.add(new IBrick());
+        brickList.add(new JBrick());brickList.add(new JBrick());
+        brickList.add(new LBrick());brickList.add(new LBrick());
+        brickList.add(new OBrick());brickList.add(new OBrick());
+        brickList.add(new SBrick());brickList.add(new SBrick());
+        brickList.add(new TBrick());brickList.add(new TBrick());
+        brickList.add(new ZBrick());brickList.add(new ZBrick());
+        brickList.add(new ShapeChangerBrick());
+        brickList.add(new ShapeChangerBrickV2());
         nextBricks.add(brickList.get(ThreadLocalRandom.current().nextInt(brickList.size())));
         nextBricks.add(brickList.get(ThreadLocalRandom.current().nextInt(brickList.size())));
     }
@@ -30,7 +34,13 @@ public class RandomBrickGenerator implements BrickGenerator {
         if (nextBricks.size() <= 1) {
             nextBricks.add(brickList.get(ThreadLocalRandom.current().nextInt(brickList.size())));
         }
-        return nextBricks.poll();
+        Brick temp = nextBricks.poll();
+        if(temp.getClass().getName().equals("com.quirko.logic.bricks.ShapeChangerBrick"))
+        Sound.PlaySound("src/main/resources/sounds/tetrisSpecialSound.wav");
+        else if(temp.getClass().getName().equals("com.quirko.logic.bricks.ShapeChangerBrickV2"))
+        Sound.PlaySound("src/main/resources/sounds/tetrisSpecialSoundTwo.wav");
+        
+        return temp;
     }
 
     @Override

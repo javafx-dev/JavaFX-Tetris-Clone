@@ -27,7 +27,7 @@ public class MatrixOperations {
         return false;
     }
 
-    private static boolean checkOutOfBound(int[][] matrix, int targetX, int targetY) {
+    public static boolean checkOutOfBound(int[][] matrix, int targetX, int targetY) {
         boolean returnValue = true;
         if (targetX >= 0 && targetY < matrix.length && targetX < matrix[targetY].length) {
             returnValue = false;
@@ -94,6 +94,13 @@ public class MatrixOperations {
 
     public static List<int[][]> deepCopyList(List<int[][]> list){
         return list.stream().map(MatrixOperations::copy).collect(Collectors.toList());
+    }
+
+    public static boolean isShapeChangerBrick(int[][] matrix){
+        return matrix[1][1]==8;
+}
+    public static boolean isShapeChangerBrickV2(int[][] matrix){
+        return matrix[2][1]==8;
     }
 
 }
