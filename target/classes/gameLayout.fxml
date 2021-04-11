@@ -1,0 +1,62 @@
+<?import com.quirko.gui.GameOverPanel?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import java.net.URL?>
+<Pane fx:controller="com.quirko.gui.GuiController"
+      xmlns:fx="http://javafx.com/fxml">
+    <GridPane fx:id="brickPanel" vgap="1" hgap="1"/>
+    <BorderPane styleClass="gameBoard" fx:id="gameBoard">
+        <center>
+            <GridPane fx:id="gamePanel" hgap="1" vgap="1" layoutY="30" layoutX="40"/>
+        </center>
+    </BorderPane>
+
+    <VBox layoutX="243" layoutY="20" alignment="CENTER" styleClass="vbox">
+        <VBox alignment="CENTER">
+            <Label text="Score:" styleClass="scoreClass"/>
+            <Text text="Text" fx:id="scoreValue" styleClass="scoreClass"/>
+        </VBox>
+        <VBox alignment="CENTER">
+            <Label text="Next brick" styleClass="nextBrickLabel"/>
+            <BorderPane styleClass="nextBrick" prefWidth="100" prefHeight="70" maxWidth="100">
+                <center>
+                    <GridPane fx:id="nextBrick" alignment="CENTER" hgap="1" vgap="1"/>
+                </center>
+            </BorderPane>
+        </VBox>
+        <Button text="New Game" onAction="#newGame" styleClass="ipad-dark-grey" prefWidth="140"/>
+        <ToggleButton text="Pause" styleClass="ipad-dark-grey" onAction="#pauseGame" prefWidth="140"
+                      fx:id="pauseButton"/>
+        <VBox fx:id="helpBox">
+
+            <Text styleClass="helpInfo" wrappingWidth="150">
+                <![CDATA[
+                Use arrow keys (←, ↑, →, ↓) or (A,S,D,W) keys for movement and rotating.
+                ]]>
+            </Text>
+            <Text styleClass="helpInfo" wrappingWidth="150">
+                <![CDATA[
+                N - start new game.
+                ]]>
+            </Text>
+            <Text styleClass="helpInfo" wrappingWidth="150">
+                <![CDATA[
+                P - pause/resume.
+                ]]>
+            </Text>
+
+        </VBox>
+    </VBox>
+    <Group fx:id="groupNotification" layoutX="14" layoutY="203">
+        <VBox alignment="CENTER">
+            <GameOverPanel fx:id="gameOverPanel"/>
+        </VBox>
+    </Group>
+    <stylesheets>
+        <URL value="@window_style.css"/>
+    </stylesheets>
+</Pane>
