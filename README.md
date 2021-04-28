@@ -9,7 +9,8 @@ Everyone will code together.
 
 1. Before you start working on a task, commit your name to it in `main` by adding parentheses to the right  e.g. (Clay).  
 2. If you run into difficulties, take your name off the task and move on to something else.  
-3. As you complete each task, do the following in **your own** branch: ~~cross them  off the list~~ using Strikethrough, add the changes to your code, then open a new Pull Request back to `main`.
+3. As you complete each task, do the following in **your own** branch: ~~cross them  off the list~~ using Strikethrough, add the changes to the code in your own branch, then open a new Pull Request back to `main`.
+4. Make sure you open Pull Request to `claycurry34/main`, rather than the `main` of the original repository.
 
 Once we are done implementing changes, two members will conduct testing as the other two members write the report (research article style). If you realize something needs to be added to this list, just add it directly to the list in `main`.
 
