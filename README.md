@@ -16,7 +16,7 @@ Once we are done implementing changes, two members will conduct testing as the o
 
 * Change the background picture to something more visually pleasing.
 * Change the coloring of the blocks to their standard game colors.
-* Implement a method (maybe a class) that constructs a Next Piece column inside a Pane object(Most likely a VBox). The column should have a capacity of 4 pieces. Slots should be individually addressable for getting and setting. You will likely need to make an image outside of Java and display it using an Image and Imageview.
+* Implement a method (maybe a class) that constructs a Next Piece column inside a Pane object(Most likely a VBox). The column should have a capacity of 4 pieces. Slots should be individually addressable for getting and setting. You will likely need to make an image outside of Java and display it using an Image and Imageview. **(Clay)**
   * Add getters and setters.
 * Implement a method (maybe a class) that constructs a Store Piece box inside a Pane object.
   * Add getters and setters.  
