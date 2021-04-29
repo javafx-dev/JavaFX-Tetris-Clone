@@ -34,6 +34,24 @@ public class GuiController implements Initializable {
 
     private boolean DEBUG = false;
 
+    // === Private Methods -- Keybindings ===============================
+    // Default control keybindings are set here. Control keybindings can
+    // be modified in changeControlKeys().
+
+    private KeyCode LEFT_CONTROL = KeyCode.LEFT;
+    private KeyCode RIGHT_CONTROL = KeyCode.RIGHT;
+    private KeyCode ROTATE_COUNTER_CONTROL = KeyCode.UP;
+    private KeyCode ROTATE_CLOCKWISE_CONTROL;
+    private KeyCode DOWN_CONTROL = KeyCode.DOWN;
+    private KeyCode DROP_CONTROL;
+    private KeyCode STORE_CONTROL;
+
+    // WARNING:
+    // KeyCode.N should be reserved for New Game.
+    // KeyCode.P should be reserved for Pause
+
+    // ==================================================================
+
     private static final int BRICK_SIZE = 20;
 
     @FXML
@@ -86,19 +104,19 @@ public class GuiController implements Initializable {
                 // ====================================================================
 
                 if (isPause.getValue() == Boolean.FALSE && isGameOver.getValue() == Boolean.FALSE) {
-                    if (keyEvent.getCode() == KeyCode.LEFT || keyEvent.getCode() == KeyCode.A) {
+                    if (keyEvent.getCode() == LEFT_CONTROL) {
                         refreshBrick(eventListener.onLeftEvent(new MoveEvent(EventType.LEFT, EventSource.USER)));
                         keyEvent.consume();
                     }
-                    if (keyEvent.getCode() == KeyCode.RIGHT || keyEvent.getCode() == KeyCode.D) {
+                    if (keyEvent.getCode() == RIGHT_CONTROL) {
                         refreshBrick(eventListener.onRightEvent(new MoveEvent(EventType.RIGHT, EventSource.USER)));
                         keyEvent.consume();
                     }
-                    if (keyEvent.getCode() == KeyCode.UP || keyEvent.getCode() == KeyCode.W) {
+                    if (keyEvent.getCode() == ROTATE_COUNTER_CONTROL) {
                         refreshBrick(eventListener.onRotateEvent(new MoveEvent(EventType.ROTATE, EventSource.USER)));
                         keyEvent.consume();
                     }
-                    if (keyEvent.getCode() == KeyCode.DOWN || keyEvent.getCode() == KeyCode.S) {
+                    if (keyEvent.getCode() == DOWN_CONTROL) {
                         moveDown(new MoveEvent(EventType.DOWN, EventSource.USER));
                         keyEvent.consume();
                     }

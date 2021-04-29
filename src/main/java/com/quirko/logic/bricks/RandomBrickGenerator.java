@@ -46,15 +46,15 @@ public class RandomBrickGenerator implements BrickGenerator {
 
     @Override
     public Brick getNextBrick() {
-        if (DEBUG)  System.out.println("RandomBrickGenerator.getNextBrick()");
+        if (DEBUG)  System.out.println("RandomBrickGenerator.peekNextBrick()");
         return nextBricks.get(0);
     }
 
 
     // accepts a value between 0 and 3
-    public Brick getNextBrickAt(int index)
+    public Brick peekNextBrickAt(int index)
     {
-        if (DEBUG)  System.out.println("RandomBrickGenerator.getNextBrickAt()");
+        if (DEBUG)  System.out.println("RandomBrickGenerator.peekNextBrickAt()");
         return nextBricks.get(index);
     }
 }
