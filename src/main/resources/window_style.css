@@ -1,5 +1,7 @@
 .root {
     -fx-background-image: url("background_image.png");
+    -fx-background-size: 525px 600px;
+
 }
 
 .nextBrick {
@@ -9,7 +11,7 @@
 }
 
 .gameBoard {
-    -fx-border-color: linear-gradient(#2A5058, #61a2b1);
+    -fx-border-color: linear-gradient(#bcf3f1, #d3f3f1);
     -fx-border-width: 12px;
     -fx-border-radius: 12px;
 }

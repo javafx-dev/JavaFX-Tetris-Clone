@@ -16,6 +16,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.effect.Bloom;
+import javafx.scene.effect.Glow;
 import javafx.scene.effect.Reflection;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -167,22 +169,22 @@ public class GuiController implements Initializable {
                 returnPaint = Color.AQUA;
                 break;
             case 2:
-                returnPaint = Color.BLUEVIOLET;
+                returnPaint = Color.BLUE;
                 break;
             case 3:
-                returnPaint = Color.DARKGREEN;
+                returnPaint = Color.DARKORANGE;
                 break;
             case 4:
                 returnPaint = Color.YELLOW;
                 break;
             case 5:
-                returnPaint = Color.RED;
+                returnPaint = Color.LIMEGREEN;
                 break;
             case 6:
-                returnPaint = Color.BEIGE;
+                returnPaint = Color.MAGENTA;
                 break;
             case 7:
-                returnPaint = Color.BURLYWOOD;
+                returnPaint = Color.RED;
                 break;
             default:
                 returnPaint = Color.WHITE;
@@ -229,6 +231,7 @@ public class GuiController implements Initializable {
         rectangle.setFill(getFillColor(color));
         rectangle.setArcHeight(9);
         rectangle.setArcWidth(9);
+
     }
 
     private void moveDown(MoveEvent event) {
