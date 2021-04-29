@@ -33,6 +33,9 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.ArrayList;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 
 public class GuiController implements Initializable {
 
@@ -62,6 +65,8 @@ public class GuiController implements Initializable {
 
 
     private static final int BRICK_SIZE = 20;
+
+    DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSS");
 
     @FXML
     private GridPane gamePanel;
@@ -127,6 +132,10 @@ public class GuiController implements Initializable {
         gamePanel.setFocusTraversable(true);
         gamePanel.requestFocus();
         mistakesArray = new ArrayList<String>();
+
+
+
+        mistakesArray.add("Gameplay started at " + dateFormat.format(new Date()));
         totalControlInvocations = 0;
         gamePanel.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -156,9 +165,8 @@ public class GuiController implements Initializable {
                     }
                     else
                     {
-                        mistakesArray.add(keyEvent.getCode().toString()); // counts mistakes
-                        System.out.println("Mistake");
-                    }
+                        mistakesArray.add(keyEvent.getCode().toString() + ", " + dateFormat.format(new Date())); // counts mistake and records time
+                        }
                     totalControlInvocations += 1;
                 }
                 else if (keyEvent.getCode() == KeyCode.N) {
@@ -176,6 +184,7 @@ public class GuiController implements Initializable {
                     printMistakes();
                     mistakesArray.clear();
                     totalControlInvocations = 0;
+                    mistakesArray.add("Gameplay restarted at " + dateFormat.format(new Date()));
                 }
                 else
                 System.out.println("I'm not sure what just happened");
@@ -266,7 +275,7 @@ public class GuiController implements Initializable {
         int i;
         for(i = 0; i < mistakesArray.size(); i++)
             System.out.println(mistakesArray.get(i));
-        System.out.println("The UI recorded " + i + " invalid control invocations.");
+        System.out.println("The UI recorded " + (i-1) + " invalid control invocations.");
         System.out.println("The UI recorded " + totalControlInvocations + " total control invocations.");
         System.out.println("======================================================================");
     }
