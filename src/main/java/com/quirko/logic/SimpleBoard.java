@@ -19,24 +19,29 @@ public class SimpleBoard implements Board {
     private final Score score;
 
     public SimpleBoard(int width, int height) {
+        System.out.println("SimpleBoard.SimpleBoard()");
         this.width = width;
         this.height = height;
         currentGameMatrix = new int[width][height];
         brickGenerator = new RandomBrickGenerator();
         brickRotator = new BrickRotator();
         score = new Score();
+        System.out.println("SimpleBoard.SimpleBoard()2");
     }
 
     @Override
     public boolean moveBrickDown() {
+        System.out.println("SimpleBoard.moveBrickDown()");
         int[][] currentMatrix = MatrixOperations.copy(currentGameMatrix);
         Point p = new Point(currentOffset);
         p.translate(0, 1);
         boolean conflict = MatrixOperations.intersect(currentMatrix, brickRotator.getCurrentShape(), (int) p.getX(), (int) p.getY());
         if (conflict) {
+            System.out.println("SimpleBoard.moveBrickDown()2");
             return false;
         } else {
             currentOffset = p;
+            System.out.println("SimpleBoard.moveBrickDown()2");
             return true;
         }
     }
@@ -85,6 +90,7 @@ public class SimpleBoard implements Board {
 
     @Override
     public boolean createNewBrick() {
+        System.out.println("CreateNewBrick()");
         Brick currentBrick = brickGenerator.getBrick();
         brickRotator.setBrick(currentBrick);
         currentOffset = new Point(4, 0);
