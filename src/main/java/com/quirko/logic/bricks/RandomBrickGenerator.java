@@ -37,4 +37,11 @@ public class RandomBrickGenerator implements BrickGenerator {
     public Brick getNextBrick() {
         return nextBricks.peek();
     }
+
+
+    // accepts a value between 0 and 3
+    public Brick getBrickAt(int index)
+    {
+        return null;
+    }
 }
