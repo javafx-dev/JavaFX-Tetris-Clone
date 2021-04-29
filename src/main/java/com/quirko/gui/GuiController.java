@@ -3,6 +3,7 @@ package com.quirko.gui;
 import com.quirko.logic.DownData;
 import com.quirko.logic.ViewData;
 import com.quirko.logic.events.*;
+import com.quirko.logic.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
@@ -66,10 +67,6 @@ public class GuiController implements Initializable {
     private Group groupNotification;
 
     @FXML
-    private GridPane nextBrick0;
-
-
-    @FXML
     private GridPane brickPanel;
 
     @FXML
@@ -98,6 +95,9 @@ public class GuiController implements Initializable {
     private GridPane storeBrick;
 
     @FXML
+    private GridPane nextBrick0;
+
+    @FXML
     private GridPane nextBrick1;
 
     @FXML
@@ -105,6 +105,8 @@ public class GuiController implements Initializable {
 
     @FXML
     private GridPane nextBrick3;
+
+    private Board board;
 	
 	// =======================================================================
 
@@ -177,6 +179,8 @@ public class GuiController implements Initializable {
 
         if (DEBUG) System.out.println("GuiController.initialize()2");
     }
+
+    public void passBoard(Board b) { this.board = b; }
 
     public void initGameView(int[][] boardMatrix, ViewData brick) {
         if (DEBUG) System.out.println("GuiController.initGameView()");
@@ -319,8 +323,6 @@ public class GuiController implements Initializable {
     // Handles Brick Coloring
     // ======================================================================
     private Paint getFillColor(int i) {
-        //if (DEBUG) System.out.println("GuiController.getFillColor()");
-
         Paint returnPaint;
         switch (i) {
             case 0:
