@@ -38,7 +38,6 @@
     -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.2), 1, 0.0, 0, 1);
-    -fx-transform: translate(-20px, 0px);
 }
 
 .rectangleStyle {
