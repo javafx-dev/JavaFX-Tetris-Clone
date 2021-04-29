@@ -9,6 +9,11 @@
 <?import java.net.URL?>
 <Pane fx:controller="com.quirko.gui.GuiController"
       xmlns:fx="http://javafx.com/fxml">
+    <AnchorPane prefHeight="800" prefWidth="500" styleClass="anchor">
+        <stylesheets>
+            <URL value="@window_style.css" />
+        </stylesheets>
+    </AnchorPane>
     <GridPane fx:id="brickPanel" vgap="1" hgap="1"/>
 
     <!-- Playing Arena -->
