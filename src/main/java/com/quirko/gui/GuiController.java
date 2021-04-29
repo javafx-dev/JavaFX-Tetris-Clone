@@ -46,6 +46,7 @@ public class GuiController implements Initializable {
     @FXML
     private GridPane nextBrick;
 
+
     @FXML
     private GridPane brickPanel;
 
@@ -66,6 +67,23 @@ public class GuiController implements Initializable {
     private final BooleanProperty isPause = new SimpleBooleanProperty();
 
     private final BooleanProperty isGameOver = new SimpleBooleanProperty();
+
+    // ============== JavaFx 2.0 =================
+    // HCI Group 16
+
+    @FXML
+    private GridPane storeBrick;
+
+    @FXML
+    private GridPane nextBrick2;
+
+    @FXML
+    private GridPane nextBrick3;
+
+    @FXML
+    private GridPane nextBrick4;
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

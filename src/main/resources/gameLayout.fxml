@@ -5,50 +5,62 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
 <?import java.net.URL?>
 <Pane fx:controller="com.quirko.gui.GuiController"
       xmlns:fx="http://javafx.com/fxml">
     <GridPane fx:id="brickPanel" vgap="1" hgap="1"/>
+
+    <!-- Playing Arena -->
     <BorderPane styleClass="gameBoard" fx:id="gameBoard">
         <center>
-            <GridPane fx:id="gamePanel" hgap="1" vgap="1" layoutY="30" layoutX="40"/>
+            <GridPane fx:id="gamePanel" hgap="1" vgap="1" layoutY="0" layoutX="40"/>
         </center>
     </BorderPane>
 
-    <VBox layoutX="243" layoutY="20" alignment="CENTER" styleClass="vbox">
-        <VBox alignment="CENTER">
+    <!-- Right-Hand Widgets-->
+    <VBox layoutX="243" layoutY="0" alignment="CENTER" styleClass="vbox">
+        <!-- Sets Margins-->
+        <padding>
+            <Insets top="10.0" />
+        </padding>
+
+        <!-- Layout for Scoreboard -->
+        <VBox>
             <Label text="Score:" styleClass="scoreClass"/>
             <Text text="Text" fx:id="scoreValue" styleClass="scoreClass"/>
         </VBox>
-        <VBox alignment="CENTER">
-            <Label text="Next brick" styleClass="nextBrickLabel"/>
-            <BorderPane styleClass="nextBrick" prefWidth="100" prefHeight="70" maxWidth="100">
-                <center>
-                    <GridPane fx:id="nextBrick" alignment="CENTER" hgap="1" vgap="1"/>
-                </center>
-            </BorderPane>
+
+        <VBox alignment="CENTER" spacing="0.0">
+        <!-- Layout for Store Brick -->
+            <VBox alignment="CENTER_LEFT">
+                <Label text="Store" styleClass="nextBrickLabel"/>
+                <BorderPane styleClass="nextBrick" prefWidth="75" prefHeight="75" maxWidth="75">
+                    <center>
+                        <GridPane fx:id="storeBrick" alignment="CENTER" hgap="1" vgap="1"/>
+                    </center>
+                </BorderPane>
+            </VBox>
+
+            <!-- Layout for Next Bricks -->
+            <VBox alignment="CENTER_LEFT">
+                <Label text="Next brick" styleClass="nextBrickLabel"/>
+                <BorderPane styleClass="nextBrick" prefWidth="75" prefHeight="260" maxWidth="75">
+                    <center>
+                        <GridPane fx:id="nextBrick" alignment="CENTER" hgap="1" vgap="1"/>
+                        <GridPane fx:id="nextBrick2" alignment="CENTER" hgap="1" vgap="1"/>
+                        <GridPane fx:id="nextBrick3" alignment="CENTER" hgap="1" vgap="1"/>
+                        <GridPane fx:id="nextBrick4" alignment="CENTER" hgap="1" vgap="1"/>
+                    </center>
+                </BorderPane>
+            </VBox>
         </VBox>
-        <Button text="New Game" onAction="#newGame" styleClass="ipad-dark-grey" prefWidth="140"/>
-        <ToggleButton text="Pause" styleClass="ipad-dark-grey" onAction="#pauseGame" prefWidth="140"
+
+
+        <VBox alignment="CENTER_LEFT" spacing="5.0">
+            <Button text="New Game" onAction="#newGame" styleClass="ipad-dark-grey" prefWidth="110"/>
+            <ToggleButton text="Pause" styleClass="ipad-dark-grey" onAction="#pauseGame" prefWidth="110"
                       fx:id="pauseButton"/>
-        <VBox fx:id="helpBox">
-
-            <Text styleClass="helpInfo" wrappingWidth="150">
-                <![CDATA[
-                Use arrow keys (←, ↑, →, ↓) or (A,S,D,W) keys for movement and rotating.
-                ]]>
-            </Text>
-            <Text styleClass="helpInfo" wrappingWidth="150">
-                <![CDATA[
-                N - start new game.
-                ]]>
-            </Text>
-            <Text styleClass="helpInfo" wrappingWidth="150">
-                <![CDATA[
-                P - pause/resume.
-                ]]>
-            </Text>
-
         </VBox>
     </VBox>
     <Group fx:id="groupNotification" layoutX="14" layoutY="203">
