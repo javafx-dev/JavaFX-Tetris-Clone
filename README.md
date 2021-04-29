@@ -21,8 +21,8 @@ Once we are done implementing changes, two members will conduct testing as the o
 * Implement a method (maybe a class) that constructs a Store Piece box inside a Pane object.
   * Add getters and setters.  
   * Implement user controls for using the Store Box.  
-* Implement Clockwise rotation.(Jiawei)
-* Implement Hard Drop.
+* Implement Clockwise rotation.  (Jiawei)
+* Implement Hard Drop. (Jiawei)
 
 * Create default controls then implement a method for reassigning controls, one-by-one.
 
