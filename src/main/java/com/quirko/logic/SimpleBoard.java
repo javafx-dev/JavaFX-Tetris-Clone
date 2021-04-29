@@ -39,11 +39,11 @@ public class SimpleBoard implements Board {
         p.translate(0, 1);
         boolean conflict = MatrixOperations.intersect(currentMatrix, brickRotator.getCurrentShape(), (int) p.getX(), (int) p.getY());
         if (conflict) {
-            if (DEBUG) System.out.println("SimpleBoard.moveBrickDown()2");
+
             return false;
         } else {
             currentOffset = p;
-            if (DEBUG) System.out.println("SimpleBoard.moveBrickDown()2");
+
             return true;
         }
     }
@@ -106,7 +106,12 @@ public class SimpleBoard implements Board {
 
     @Override
     public ViewData getViewData() {
-        return new ViewData(brickRotator.getCurrentShape(), (int) currentOffset.getX(), (int) currentOffset.getY(), brickGenerator.getNextBrick().getShapeMatrix().get(0));
+        return new ViewData(brickRotator.getCurrentShape(), (int) currentOffset.getX(), (int) currentOffset.getY(),
+                brickGenerator.getNextBrick().getShapeMatrix().get(0),
+                brickGenerator.peekNextBrickAt(1).getShapeMatrix().get(0),
+                brickGenerator.peekNextBrickAt(2).getShapeMatrix().get(0),
+                brickGenerator.peekNextBrickAt(3).getShapeMatrix().get(0)
+        );
     }
 
     @Override

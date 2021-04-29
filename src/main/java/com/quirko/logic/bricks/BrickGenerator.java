@@ -5,4 +5,6 @@ public interface BrickGenerator {
     Brick getBrick();
 
     Brick getNextBrick();
+
+    public Brick peekNextBrickAt(int index);
 }

@@ -206,7 +206,7 @@ public class GuiController implements Initializable {
         brickPanel.setLayoutX(gamePanel.getLayoutX() + brick.getxPosition() * brickPanel.getVgap() + brick.getxPosition() * BRICK_SIZE);
         brickPanel.setLayoutY(-42 + gamePanel.getLayoutY() + brick.getyPosition() * brickPanel.getHgap() + brick.getyPosition() * BRICK_SIZE);
 
-        generatePreviewPanel(brick.getNextBrickData());
+        generatePreviewPanel(brick);
 
 
         timeLine = new Timeline(new KeyFrame(
@@ -217,9 +217,9 @@ public class GuiController implements Initializable {
         timeLine.play();
     }
 
-    private void generatePreviewPanel(int[][] nextBrickData) {
+    private void generatePreviewPanel(ViewData brick) {
         //if (DEBUG) System.out.println("GuiController.generatePreviewPanel()");
-
+        int [][] nextBrickData = brick.getNextBrickDataAt(0);
         nextBrick0.getChildren().clear();
         for (int i = 0; i < nextBrickData.length; i++) {
             for (int j = 0; j < nextBrickData[i].length; j++) {
@@ -231,6 +231,7 @@ public class GuiController implements Initializable {
             }
         }
 
+        nextBrickData = brick.getNextBrickDataAt(1);
         nextBrick1.getChildren().clear();
         for (int i = 0; i < nextBrickData.length; i++) {
             for (int j = 0; j < nextBrickData[i].length; j++) {
@@ -242,6 +243,7 @@ public class GuiController implements Initializable {
             }
         }
 
+        nextBrickData = brick.getNextBrickDataAt(2);
         nextBrick2.getChildren().clear();
         for (int i = 0; i < nextBrickData.length; i++) {
             for (int j = 0; j < nextBrickData[i].length; j++) {
@@ -253,6 +255,7 @@ public class GuiController implements Initializable {
             }
         }
 
+        nextBrickData = brick.getNextBrickDataAt(3);
         nextBrick3.getChildren().clear();
         for (int i = 0; i < nextBrickData.length; i++) {
             for (int j = 0; j < nextBrickData[i].length; j++) {
@@ -276,7 +279,7 @@ public class GuiController implements Initializable {
                     setRectangleData(brick.getBrickData()[i][j], rectangles[i][j]);
                 }
             }
-            generatePreviewPanel(brick.getNextBrickData());
+            generatePreviewPanel(brick);
         }
     }
 
