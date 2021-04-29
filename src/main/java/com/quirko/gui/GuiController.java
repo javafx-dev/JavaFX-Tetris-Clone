@@ -66,7 +66,7 @@ public class GuiController implements Initializable {
     private Group groupNotification;
 
     @FXML
-    private GridPane nextBrick;
+    private GridPane nextBrick0;
 
 
     @FXML
@@ -98,13 +98,13 @@ public class GuiController implements Initializable {
     private GridPane storeBrick;
 
     @FXML
+    private GridPane nextBrick1;
+
+    @FXML
     private GridPane nextBrick2;
 
     @FXML
     private GridPane nextBrick3;
-
-    @FXML
-    private GridPane nextBrick4;
 	
 	// =======================================================================
 
@@ -216,13 +216,46 @@ public class GuiController implements Initializable {
     private void generatePreviewPanel(int[][] nextBrickData) {
         //if (DEBUG) System.out.println("GuiController.generatePreviewPanel()");
 
-        nextBrick.getChildren().clear();
+        nextBrick0.getChildren().clear();
         for (int i = 0; i < nextBrickData.length; i++) {
             for (int j = 0; j < nextBrickData[i].length; j++) {
                 Rectangle rectangle = new Rectangle(BRICK_SIZE, BRICK_SIZE);
                 setRectangleData(nextBrickData[i][j], rectangle);
                 if (nextBrickData[i][j] != 0) {
-                    nextBrick.add(rectangle, j, i);
+                    nextBrick0.add(rectangle, j, i);
+                }
+            }
+        }
+
+        nextBrick1.getChildren().clear();
+        for (int i = 0; i < nextBrickData.length; i++) {
+            for (int j = 0; j < nextBrickData[i].length; j++) {
+                Rectangle rectangle = new Rectangle(BRICK_SIZE, BRICK_SIZE);
+                setRectangleData(nextBrickData[i][j], rectangle);
+                if (nextBrickData[i][j] != 0) {
+                    nextBrick1.add(rectangle, j, i);
+                }
+            }
+        }
+
+        nextBrick2.getChildren().clear();
+        for (int i = 0; i < nextBrickData.length; i++) {
+            for (int j = 0; j < nextBrickData[i].length; j++) {
+                Rectangle rectangle = new Rectangle(BRICK_SIZE, BRICK_SIZE);
+                setRectangleData(nextBrickData[i][j], rectangle);
+                if (nextBrickData[i][j] != 0) {
+                    nextBrick2.add(rectangle, j, i);
+                }
+            }
+        }
+
+        nextBrick3.getChildren().clear();
+        for (int i = 0; i < nextBrickData.length; i++) {
+            for (int j = 0; j < nextBrickData[i].length; j++) {
+                Rectangle rectangle = new Rectangle(BRICK_SIZE, BRICK_SIZE);
+                setRectangleData(nextBrickData[i][j], rectangle);
+                if (nextBrickData[i][j] != 0) {
+                    nextBrick3.add(rectangle, j, i);
                 }
             }
         }

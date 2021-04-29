@@ -50,14 +50,16 @@
             <!-- Layout for Next Bricks -->
             <VBox alignment="CENTER_LEFT">
                 <Label text="Next brick" styleClass="nextBrickLabel"/>
-                <BorderPane styleClass="nextBrick" prefWidth="75" prefHeight="260" maxWidth="75">
-                    <center>
-                        <GridPane fx:id="nextBrick" alignment="CENTER" hgap="1" vgap="1"/>
-                        <GridPane fx:id="nextBrick2" alignment="CENTER" hgap="1" vgap="1"/>
-                        <GridPane fx:id="nextBrick3" alignment="CENTER" hgap="1" vgap="1"/>
-                        <GridPane fx:id="nextBrick4" alignment="CENTER" hgap="1" vgap="1"/>
-                    </center>
-                </BorderPane>
+                <VBox alignment="CENTER" styleClass="nextBrick" prefWidth="75" prefHeight="260" maxWidth="75" spacing="15.0">
+                    <padding>
+                        <Insets top="10.0" bottom="10.0" />
+                    </padding>
+                    <GridPane fx:id="nextBrick0" prefHeight="65" alignment="CENTER" hgap="1" vgap="1"/>
+                    <GridPane fx:id="nextBrick1" prefHeight="65" alignment="CENTER" hgap="1" vgap="1"/>
+                    <GridPane fx:id="nextBrick2" prefHeight="65" alignment="CENTER" hgap="1" vgap="1"/>
+                    <GridPane fx:id="nextBrick3" prefHeight="65" alignment="CENTER" hgap="1" vgap="1"/>
+
+                </VBox>
             </VBox>
         </VBox>
 
