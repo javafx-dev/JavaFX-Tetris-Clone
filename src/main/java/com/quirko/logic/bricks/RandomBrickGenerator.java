@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomBrickGenerator implements BrickGenerator {
 
-    private boolean DEBUG = true;
+    private boolean DEBUG = false;
 
     private final List<Brick> brickList = new ArrayList<>();
 

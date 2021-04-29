@@ -32,28 +32,34 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.ArrayList;
 
 public class GuiController implements Initializable {
 
-    private boolean DEBUG = true;
+    private boolean DEBUG = false;
 
     // === Private Methods -- Keybindings ===============================
     // Default control keybindings are set here. Control keybindings can
     // be modified in changeControlKeys().
 
-    private KeyCode LEFT_CONTROL = KeyCode.LEFT;
-    private KeyCode RIGHT_CONTROL = KeyCode.RIGHT;
+    private KeyCode LEFT_HORIZONTAL_CONTROL = KeyCode.LEFT;
+    private KeyCode RIGHT_HORIZONTAL_CONTROL = KeyCode.RIGHT;
     private KeyCode ROTATE_COUNTER_CONTROL = KeyCode.UP;
     private KeyCode ROTATE_CLOCKWISE_CONTROL;
     private KeyCode DOWN_CONTROL = KeyCode.DOWN;
     private KeyCode DROP_CONTROL;
     private KeyCode STORE_CONTROL;
-
+    private boolean assign_flag = false;
+    private int instruction = 0;
+    private ArrayList<String> mistakesArray; // COUNTS THE NUMBER OF INVALID CONTOL INVOCATIONS
     // WARNING:
     // KeyCode.N should be reserved for New Game.
     // KeyCode.P should be reserved for Pause
 
+    private int totalControlInvocations;
     // ==================================================================
+
+
 
     private static final int BRICK_SIZE = 20;
 
@@ -117,10 +123,11 @@ public class GuiController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (DEBUG) System.out.println("GuiController.initialize()");
-
         Font.loadFont(getClass().getClassLoader().getResource("digital.ttf").toExternalForm(), 38);
         gamePanel.setFocusTraversable(true);
         gamePanel.requestFocus();
+        mistakesArray = new ArrayList<String>();
+        totalControlInvocations = 0;
         gamePanel.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -131,30 +138,50 @@ public class GuiController implements Initializable {
                 // ====================================================================
 
                 if (isPause.getValue() == Boolean.FALSE && isGameOver.getValue() == Boolean.FALSE) {
-                    if (keyEvent.getCode() == LEFT_CONTROL) {
+                    if (keyEvent.getCode() == LEFT_HORIZONTAL_CONTROL) {
                         refreshBrick(eventListener.onLeftEvent(new MoveEvent(EventType.LEFT, EventSource.USER)));
                         keyEvent.consume();
                     }
-                    if (keyEvent.getCode() == RIGHT_CONTROL) {
+                    else if (keyEvent.getCode() == RIGHT_HORIZONTAL_CONTROL) {
                         refreshBrick(eventListener.onRightEvent(new MoveEvent(EventType.RIGHT, EventSource.USER)));
                         keyEvent.consume();
                     }
-                    if (keyEvent.getCode() == ROTATE_COUNTER_CONTROL) {
+                    else if (keyEvent.getCode() == ROTATE_COUNTER_CONTROL || keyEvent.getCode() == ROTATE_CLOCKWISE_CONTROL) {
                         refreshBrick(eventListener.onRotateEvent(new MoveEvent(EventType.ROTATE, EventSource.USER)));
                         keyEvent.consume();
                     }
-                    if (keyEvent.getCode() == DOWN_CONTROL) {
+                    else if (keyEvent.getCode() == DOWN_CONTROL) {
                         moveDown(new MoveEvent(EventType.DOWN, EventSource.USER));
                         keyEvent.consume();
                     }
+                    else
+                    {
+                        mistakesArray.add(keyEvent.getCode().toString()); // counts mistakes
+                        System.out.println("Mistake");
+                    }
+                    totalControlInvocations += 1;
                 }
-                if (keyEvent.getCode() == KeyCode.N) {
+                else if (keyEvent.getCode() == KeyCode.N) {
                     newGame(null);
                 }
-                if (keyEvent.getCode() == KeyCode.P) {
+                else if (keyEvent.getCode() == KeyCode.P) {
                     pauseButton.selectedProperty().setValue(!pauseButton.selectedProperty().getValue());
                 }
+                else if (assign_flag == true || (isPause.getValue() == Boolean.TRUE && keyEvent.getCode() == KeyCode.BACK_QUOTE))
+                {
+                    reassignControls(keyEvent.getCode());
+                }
+                else if (isPause.getValue() == Boolean.TRUE && keyEvent.getCode() == KeyCode.TAB)
+                {
+                    printMistakes();
+                    mistakesArray.clear();
+                    totalControlInvocations = 0;
+                }
+                else
+                System.out.println("I'm not sure what just happened");
 
+
+                keyEvent.consume();
             }
         });
         gameOverPanel.setVisible(false);
@@ -180,7 +207,69 @@ public class GuiController implements Initializable {
         if (DEBUG) System.out.println("GuiController.initialize()2");
     }
 
-    public void passBoard(Board b) { this.board = b; }
+    // ====================================================================
+    // Keybindings for controls are customized here
+    // ====================================================================
+
+    private void reassignControls(KeyCode c)
+    {
+        if (assign_flag == false) {
+            System.out.println("\n\n======================================================================");
+            System.out.println("Assigning new controls. Don't mess this up (press backspace if you mess up).");
+            assign_flag = true;
+            instruction = 0;
+        }
+        if (c == KeyCode.BACK_SPACE)
+            instruction = 0;
+
+        if (c != KeyCode.BACK_QUOTE) System.out.println(c);
+        switch (instruction) {
+            case 0:
+                System.out.print("Indicate new keybinding for LEFT_HORIZONTAL_CONTROL : ");
+                break;
+            case 1:
+                LEFT_HORIZONTAL_CONTROL = c;
+                System.out.print("Indicate new keybinding for RIGHT_HORIZONTAL_CONTROL : ");
+                break;
+            case 2:
+                RIGHT_HORIZONTAL_CONTROL = c;
+                System.out.print("Indicate new keybinding for ROTATE_COUNTER_CONTROL : ");
+                break;
+            case 3:
+                ROTATE_COUNTER_CONTROL = c;
+                System.out.print("Indicate new keybinding for ROTATE_CLOCKWISE_CONTROL : ");
+                break;
+            case 4:
+                ROTATE_CLOCKWISE_CONTROL = c;
+                System.out.print("Indicate new keybinding for DOWN_CONTROL : ");
+                break;
+            case 5:
+                DOWN_CONTROL = c;
+                System.out.print("Indicate new keybinding for STORE_CONTROL : ");
+                break;
+            case 6:
+                STORE_CONTROL = c;
+                instruction = -1;
+                assign_flag = false;
+                System.out.println("New keybindings have been set. You may resume playing");
+                System.out.println("======================================================================");
+
+                break;
+        }
+        instruction += 1;
+    }
+
+    private void printMistakes()
+    {
+        System.out.println("======================================================================");
+        System.out.println("Printing invalid control invocations");
+        int i;
+        for(i = 0; i < mistakesArray.size(); i++)
+            System.out.println(mistakesArray.get(i));
+        System.out.println("The UI recorded " + i + " invalid control invocations.");
+        System.out.println("The UI recorded " + totalControlInvocations + " total control invocations.");
+        System.out.println("======================================================================");
+    }
 
     public void initGameView(int[][] boardMatrix, ViewData brick) {
         if (DEBUG) System.out.println("GuiController.initGameView()");
@@ -217,6 +306,12 @@ public class GuiController implements Initializable {
         timeLine.play();
     }
 
+    public void passBoard(Board b) { this.board = b; }
+
+
+    // ======================================================
+    // Implements Next Block Column
+    // ======================================================
     private void generatePreviewPanel(ViewData brick) {
         //if (DEBUG) System.out.println("GuiController.generatePreviewPanel()");
         int [][] nextBrickData = brick.getNextBrickDataAt(0);
@@ -335,22 +430,22 @@ public class GuiController implements Initializable {
                 returnPaint = Color.AQUA;
                 break;
             case 2:
-                returnPaint = Color.BLUEVIOLET;
+                returnPaint = Color.BLUE;
                 break;
             case 3:
-                returnPaint = Color.DARKGREEN;
+                returnPaint = Color.DARKORANGE;
                 break;
             case 4:
                 returnPaint = Color.YELLOW;
                 break;
             case 5:
-                returnPaint = Color.RED;
+                returnPaint = Color.LIMEGREEN;
                 break;
             case 6:
-                returnPaint = Color.BEIGE;
+                returnPaint = Color.MAGENTA;
                 break;
             case 7:
-                returnPaint = Color.BURLYWOOD;
+                returnPaint = Color.RED;
                 break;
             default:
                 returnPaint = Color.WHITE;
@@ -392,7 +487,11 @@ public class GuiController implements Initializable {
 
     public void pauseGame(ActionEvent actionEvent) {
         if (DEBUG) System.out.println("GuiController.pauseGame()");
-
+        System.out.println("\n\n======================================================================");
+        System.out.println("Game Paused");
+        System.out.println("Press ` to reassign controls");
+        System.out.println("Press TAB to retrieve invalid control invocation table (resetting it afterward).");
+        System.out.println("======================================================================");
         gamePanel.requestFocus();
     }
 }

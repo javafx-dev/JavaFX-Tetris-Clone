@@ -2,7 +2,7 @@ package com.quirko.logic;
 
 public final class ViewData {
 
-    private boolean DEBUG = true;
+    private boolean DEBUG = false;
 
     private final int[][] brickData;
     private final int xPosition;
