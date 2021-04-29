@@ -8,12 +8,13 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomBrickGenerator implements BrickGenerator {
 
-    private final List<Brick> brickList;
+    private boolean DEBUG = true;
 
-    private final Deque<Brick> nextBricks = new ArrayDeque<>();
+    private final List<Brick> brickList = new ArrayList<>();
+
+    private final List<Brick> nextBricks = new ArrayList<>();
 
     public RandomBrickGenerator() {
-        brickList = new ArrayList<>();
         brickList.add(new IBrick());
         brickList.add(new JBrick());
         brickList.add(new LBrick());
@@ -23,18 +24,37 @@ public class RandomBrickGenerator implements BrickGenerator {
         brickList.add(new ZBrick());
         nextBricks.add(brickList.get(ThreadLocalRandom.current().nextInt(brickList.size())));
         nextBricks.add(brickList.get(ThreadLocalRandom.current().nextInt(brickList.size())));
+        nextBricks.add(brickList.get(ThreadLocalRandom.current().nextInt(brickList.size())));
+        nextBricks.add(brickList.get(ThreadLocalRandom.current().nextInt(brickList.size())));
+
+        if (DEBUG)  System.out.println("brickList size = " + brickList.size());
+        if (DEBUG)  System.out.println("nextBricks size = " + nextBricks.size());
     }
 
     @Override
     public Brick getBrick() {
-        if (nextBricks.size() <= 1) {
+        if (DEBUG)  System.out.println("RandomBrickGenerator.getBrick()");
+        if (DEBUG)  System.out.println("brickList size = " + brickList.size());
+        if (DEBUG)  System.out.println("nextBricks size = " + nextBricks.size());
+        if (nextBricks.size() <= 4) {
+            if (DEBUG)  System.out.println("RandomBrickGenerator.getBrick() -> adding more bricks");
             nextBricks.add(brickList.get(ThreadLocalRandom.current().nextInt(brickList.size())));
         }
-        return nextBricks.poll();
+        if (DEBUG)  System.out.println("RandomBrickGenerator.getBrick()2");
+        return nextBricks.remove(0);
     }
 
     @Override
     public Brick getNextBrick() {
-        return nextBricks.peek();
+        // if (DEBUG)  System.out.println("RandomBrickGenerator.peekNextBrick()");
+        return nextBricks.get(0);
+    }
+
+
+    // accepts a value between 0 and 3
+    public Brick peekNextBrickAt(int index)
+    {
+        if (DEBUG)  System.out.println("RandomBrickGenerator.peekNextBrickAt()");
+        return nextBricks.get(index);
     }
 }
