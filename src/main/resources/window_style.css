@@ -16,7 +16,7 @@
 
 .nextBrickLabel {
     -fx-font-family: "Let's go Digital";
-    -fx-padding: 20px 0 0 0;
+    -fx-padding: 10px 0 0 0;
     -fx-font-size: 16px;
     -fx-text-fill: yellow;
 }
@@ -36,6 +36,7 @@
     -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.2), 1, 0.0, 0, 1);
+    -fx-transform: translate(-20px, 0px);
 }
 
 .rectangleStyle {
@@ -43,7 +44,7 @@
 }
 
 .vbox {
-    -fx-spacing: 12;
+    -fx-spacing: 20;
 }
 
 .helpInfo {
@@ -67,6 +68,6 @@
 .scoreClass{
     -fx-font-family: "Let's go Digital";
     -fx-font-size: 38;
-    -fx-fill: yellow;
-    -fx-text-fill: yellow;
+    -fx-fill: #00d5e3;
+    -fx-text-fill: #00d5e3;
 }
