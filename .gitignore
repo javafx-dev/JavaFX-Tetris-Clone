@@ -1,4 +1,4 @@
 .idea
 .sonar
-target
+target/
 jar_builder.bat
