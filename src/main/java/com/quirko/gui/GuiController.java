@@ -102,8 +102,8 @@ public class GuiController implements Initializable {
 	// This was very difficult to implement. Used to update slots in the 
 	// Next Brick window
 
-    @FXML
-    private GridPane storeBrick;
+    //@FXML
+    //private GridPane storeBrick;
 
     @FXML
     private GridPane nextBrick0;

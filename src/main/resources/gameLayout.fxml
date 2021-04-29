@@ -37,7 +37,8 @@
         </VBox>
 
         <VBox alignment="CENTER" spacing="0.0">
-        <!-- Layout for Store Brick -->
+             <!--Layout for Store Brick -->
+            <!--
             <VBox alignment="CENTER_LEFT">
                 <Label text="Store" styleClass="nextBrickLabel"/>
                 <BorderPane styleClass="nextBrick" prefWidth="75" prefHeight="75" maxWidth="75">
@@ -46,6 +47,7 @@
                     </center>
                 </BorderPane>
             </VBox>
+            -->
 
             <!-- Layout for Next Bricks -->
             <VBox alignment="CENTER_LEFT">
