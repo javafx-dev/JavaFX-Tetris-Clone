@@ -1,5 +1,7 @@
 .root {
     -fx-background-image: url("background_image.png");
+    -fx-background-size: 525px 600px;
+
 }
 
 .nextBrick {
@@ -9,14 +11,14 @@
 }
 
 .gameBoard {
-    -fx-border-color: linear-gradient(#2A5058, #61a2b1);
+    -fx-border-color: linear-gradient(#bcf3f1, #d3f3f1);
     -fx-border-width: 12px;
     -fx-border-radius: 12px;
 }
 
 .nextBrickLabel {
     -fx-font-family: "Let's go Digital";
-    -fx-padding: 20px 0 0 0;
+    -fx-padding: 10px 0 0 0;
     -fx-font-size: 16px;
     -fx-text-fill: yellow;
 }
@@ -43,7 +45,7 @@
 }
 
 .vbox {
-    -fx-spacing: 12;
+    -fx-spacing: 20;
 }
 
 .helpInfo {
@@ -67,6 +69,6 @@
 .scoreClass{
     -fx-font-family: "Let's go Digital";
     -fx-font-size: 38;
-    -fx-fill: yellow;
-    -fx-text-fill: yellow;
+    -fx-fill: #00d5e3;
+    -fx-text-fill: #00d5e3;
 }
